@@ -11,6 +11,66 @@ function financial_cost(){
     calc_finance_data().then(ratio_data=>{
 
         console.log(ratio_data)
+
+        const pays = ["High", "Mid-High", "Mid-Low", "Low"]
+        const races = ['White', 'Asian', 'Black', 'Hispanic'];
+
+        const arrows = ratio_data.map(row =>
+            row.map(d => d > 1 ? '→' : '←')
+          );
+          
+        
+          const bars = ratio_data.map((group, i) => {
+
+            const create_pattern = (pay) => {
+                if (pay === 'Low') {
+                    return {
+                        shape: '-',
+                        bgcolor: 'gray',
+                        fgcolor: group.map(d => d >= 1 ? 'blue' : 'red')
+                    };
+                } else if (pay === 'Mid-Low') {
+                    return {
+                        shape: '.',
+                        bgcolor: 'gray',
+                        fgcolor: group.map(d => d >= 1 ? 'blue' : 'red')
+                    };
+                } else if (pay == 'Mid-High'){
+                    return {
+                        shape: '+',
+                        bgcolor: 'gray',
+                        fgcolor: group.map(d => d >= 1 ? 'blue' : 'red')
+                    }
+                }
+                else {  
+                    return {
+                        shape: 'x',
+                        bgcolor: 'gray',
+                        fgcolor: group.map(d => d >= 1 ? 'blue' : 'red')
+                    };
+                }
+            };
+        
+            return {
+                x: group.map(d => (d - 1) * 100),  // Converting to percentages from the base of 1
+                y: races,
+                name: pays[i],
+                orientation: 'h',
+                type: 'bar',
+                text: arrows[i],
+                marker: {
+                    pattern: create_pattern(pays[i])
+                }
+            };
+        });
+        
+    
+        const layout = {
+            barmode: 'group',
+          
+        };
+    
+        Plotly.newPlot('heatmap', bars, layout);
     }
 
     );
@@ -27,14 +87,12 @@ async function calc_finance_data(){
 
     // holds all the ratio data and the 
     // names for the occupations
-    let ratio_white = [];
-    let ratio_asian = [];
-    let ratio_black = [];
-    let ratio_hispanic = [];
+   
     let occupation_names = [];
     let occupation_salary = [];
     let first_data;
-    let merge = [];
+    let ratios = [];
+    let merge =[];
 
     // Import the median income by occupation data 
     await d3.csv("./data/median_by_occupations.csv", d => ({        
@@ -62,6 +120,7 @@ async function calc_finance_data(){
         first_data = data;
     })
 
+    // import the race percents data
     await d3.csv("./data/race_percents.csv", d => ({        
         occupation: d.Occupation,
         white_2023: +d.White_2023,
@@ -77,7 +136,7 @@ async function calc_finance_data(){
     .then(data => {
         
         //const median_year = `median_${year}` uncomment later, depending on the year they select change this
-        const median_year = `2022`
+        const median_year = `2023`
 
         // merge the data based on the occupation names
         for (let i =0; i<first_data.length;i++){
@@ -125,136 +184,54 @@ async function calc_finance_data(){
         const q1 = d3.median(below_median_values);
         const q3 = d3.median(above_median_values);
 
-        
         // high pay is anything above q3
         const high_pay = merge.filter(d=>d.median>q3)
-
-
-
-        let total_white = 0;
-        let total_asian = 0;
-        let total_hispanic = 0;
-        let total_black = 0;
-        for(let i =0; i< high_pay.length;i++){
-            total_white+=high_pay[i].white;
-            total_asian+=high_pay[i].asian;
-        
-            total_hispanic+=high_pay[i].hispanic;
-            total_black+=high_pay[i].black;
-
-        }
-        let avg_white = total_white/high_pay.length;
-        let avg_asian = total_asian/high_pay.length;
-        let avg_hispanic = total_hispanic/high_pay.length;
-        let avg_black = total_black/high_pay.length;
-
-
-        console.log("high")
-        console.log(avg_asian)
-        console.log(avg_black)
-        console.log(avg_hispanic)
-        console.log(avg_white)
-        
-
+        // low pay is anything below q1
+        const low_pay = merge.filter(d=>d.median<q1)
+        // low mid pay is anything between q1 and q2
+        const low_mid_pay = merge.filter(d=>q1<d.median<median_total.median)
         // mid high pay is anything between q2 and q3
         const mid_high_pay = merge.filter(d=>median_total.median<d.median<q3)
 
-        total_white = 0;
-        total_asian = 0;
-        total_hispanic = 0;
-        total_black = 0;
-        for(let i =0; i< mid_high_pay.length;i++){
-            total_white+=mid_high_pay[i].white;
-            total_asian+=mid_high_pay[i].asian;
-        
-            total_hispanic+=mid_high_pay[i].hispanic;
-            total_black+=mid_high_pay[i].black;
 
-        }
-        avg_white = total_white/mid_high_pay.length;
-        avg_asian = total_asian/mid_high_pay.length;
-        avg_hispanic = total_hispanic/mid_high_pay.length;
-        avg_black = total_black/mid_high_pay.length;
+        // make an array for all of the pays
+        let pays = [high_pay, mid_high_pay, low_mid_pay, low_pay]
+
+        // make an array for all the ratios we will get from the results
+        ratios = [[],[],[],[]]
+
+        // for each of the pay ranges calculate the over/under representative ratio
+        for(let i = 0; i< pays.length;i++){
+            let total_white = 0;
+            let total_asian = 0;
+            let total_hispanic = 0;
+            let total_black = 0;
+
+            for(let j =0; j< pays[i].length;j++){
+                total_white+=pays[i][j].white;
+                total_asian+=pays[i][j].asian;
+                total_hispanic+=pays[i][j].hispanic;
+                total_black+=pays[i][j].black;
+    
+            }
+            let avg_white = total_white/pays[i].length;
+            let avg_asian = total_asian/pays[i].length;
+            let avg_hispanic = total_hispanic/pays[i].length;
+            let avg_black = total_black/pays[i].length;
+
+            ratios[i].push(avg_white/base_white)
+            ratios[i].push(avg_asian/base_asian)
+            ratios[i].push(avg_black/base_black)
+            ratios[i].push(avg_hispanic/base_hispanic)
     
 
-        console.log("midhigh")
-        console.log(avg_asian)
-        console.log(avg_black)
-        console.log(avg_hispanic)
-        console.log(avg_white)
-        
-
-        // low mid pay is anything between q1 and q2
-        const low_mid_pay = merge.filter(d=>q1<d.median<median_total.median)
-      
-
-        total_white = 0;
-        total_asian = 0;
-        total_hispanic = 0;
-        total_black = 0;
-        for(let i =0; i< low_mid_pay.length;i++){
-            total_white+=low_mid_pay[i].white;
-            total_asian+=low_mid_pay[i].asian;
-        
-            total_hispanic+=low_mid_pay[i].hispanic;
-            total_black+=low_mid_pay[i].black;
-
         }
-        avg_white = total_white/low_mid_pay.length;
-        avg_asian = total_asian/low_mid_pay.length;
-        avg_hispanic = total_hispanic/low_mid_pay.length;
-        avg_black = total_black/low_mid_pay.length;
 
 
-        console.log("lowmid")
-        console.log(avg_asian)
-        console.log(avg_black)
-        console.log(avg_hispanic)
-        console.log(avg_white)
-        
-   
-
-        // low pay is anything below q1
-        const low_pay = merge.filter(d=>d.median<q1)
-
-        total_white = 0;
-        total_asian = 0;
-        total_hispanic = 0;
-        total_black = 0;
-        for(let i =0; i< low_pay.length;i++){
-            total_white+=low_pay[i].white;
-            total_asian+=low_pay[i].asian;
-        
-            total_hispanic+=low_pay[i].hispanic;
-            total_black+=low_pay[i].black;
-
-        }
-        avg_white = total_white/low_pay.length;
-        avg_asian = total_asian/low_pay.length;
-        avg_hispanic = total_hispanic/low_pay.length;
-        avg_black = total_black/low_pay.length;
-
-        console.log("low")
-        console.log(avg_asian)
-        console.log(avg_black)
-        console.log(avg_hispanic)
-        console.log(avg_white)
-        
-
-        console.log(base_asian)
-        console.log(base_black)
-        console.log(base_hispanic)
-        console.log(base_white)
-        
     })
 
 
-
-    return merge;
-
-
-
-
+    return ratios;
 
 
 }
