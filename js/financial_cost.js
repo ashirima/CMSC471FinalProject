@@ -8,10 +8,10 @@ export function init(year){
 // Creates the visualization for the Finacial Cost
 function financial_cost(year){
 
- 
+
     calc_finance_data(year).then(ratio_data=>{
 
-
+        // variables for labels and colors
         const pays = ["High Salary", "Mid-High Salary", "Mid-Low Salary", "Low Salary"]
         const races = ['White', 'Asian', 'Black', 'Hispanic'];
         const colors = ['rgb(111,156,61)', "rgb(165,201,15)", "rgb(255,136,41)", "rgb(193,0,13)"]
@@ -20,13 +20,14 @@ function financial_cost(year){
 
         // make the arrows point left or right depending on the over or under representation
         const arrows = ratio_data.map(row =>
-            row.map(d => d > 1 ? '→' : '←')
+            //unicode for left and right arrows
+            row.map(d => d > 1 ? '\u2192' : '\u2190')
           );
           
-        
-          const bars = ratio_data.map((group, i) => {
+        // create the bars for the graph
+        const bars = ratio_data.map((group, i) => {
 
-           
+           // return each graph
             return {
                 x: group.map(d => (d - 1) * 100),  // Converting to percentages from the base of 1
                 y: races,
@@ -45,9 +46,10 @@ function financial_cost(year){
             };
         });
         
+        // titles for each graph
         const titles= [{
             text: '<span style="font-weight:700;font-size:14">High Salary</span>',
-            x:0.5,
+            x:0.5, 
             y:1.15,
             yref: 'y1 domain',
             xref:'x1 domain',
@@ -83,6 +85,7 @@ function financial_cost(year){
 
         }]
 
+        // the grid surrounding the graphs to seperate them
         const shapes = [
             {
               type: 'rect',
@@ -134,17 +137,15 @@ function financial_cost(year){
                   width: 2
                 }
               },
-           
-         
-        
           ];
 
+        // creating the layout for the graphs
         const layout = {
             barmode: 'group',
             grid: {
                 rows: 2,
                 columns: 2,
-                pattern: "independent"
+                pattern: "independent" // make sure that they actually show up in the grid
                 
             },
             font: {
@@ -155,7 +156,7 @@ function financial_cost(year){
                 range: [-90, 90],
                 title: {
                     text: '% Underrepresented or Overrepresented',
-                    standoff: 5,
+                    standoff: 5, // add spacing between the graphs 
                     font: {
                         size:12
                     }
@@ -299,14 +300,13 @@ async function calc_finance_data(year){
             const occupation_name = first_data[i].occupation;
             for(let j =0;j<data.length;j++){
                 if(occupation_name == data[j].occupation){
+                    
                     // Filter out NaN values
                     if( first_data[i].occupation !="" &&  !isNaN(first_data[i][`median_${median_year}`]) &&
                     !isNaN(data[j][`white_${median_year}`]) &&  !isNaN(data[j][`black_${median_year}`])
                         &&  !isNaN(data[j][`asian_${median_year}`]) &&  !isNaN(data[j][`hispanic_${median_year}`])){
+
                         // push to merge the two datasets
-                        
-
-
                         merge.push({
                             occupation: first_data[i].occupation,
                             median: first_data[i][`median_${median_year}`],
