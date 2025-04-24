@@ -12,9 +12,13 @@ function financial_cost(){
 
         console.log(ratio_data)
 
-        const pays = ["High", "Mid-High", "Mid-Low", "Low"]
+        const pays = ["High Salary", "Mid-High Salary", "Mid-Low Salary", "Low Salary"]
         const races = ['White', 'Asian', 'Black', 'Hispanic'];
+        const colors = ['rgb(111,156,61)', "rgb(165,201,15)", "rgb(255,136,41)", "rgb(193,0,13)"]
 
+        
+
+        // make the arrows point left or right depending on the over or under representation
         const arrows = ratio_data.map(row =>
             row.map(d => d > 1 ? '→' : '←')
           );
@@ -22,35 +26,7 @@ function financial_cost(){
         
           const bars = ratio_data.map((group, i) => {
 
-            const create_pattern = (pay) => {
-                if (pay === 'Low') {
-                    return {
-                        shape: '-',
-                        bgcolor: 'gray',
-                        fgcolor: group.map(d => d >= 1 ? 'blue' : 'red')
-                    };
-                } else if (pay === 'Mid-Low') {
-                    return {
-                        shape: '.',
-                        bgcolor: 'gray',
-                        fgcolor: group.map(d => d >= 1 ? 'blue' : 'red')
-                    };
-                } else if (pay == 'Mid-High'){
-                    return {
-                        shape: '+',
-                        bgcolor: 'gray',
-                        fgcolor: group.map(d => d >= 1 ? 'blue' : 'red')
-                    }
-                }
-                else {  
-                    return {
-                        shape: 'x',
-                        bgcolor: 'gray',
-                        fgcolor: group.map(d => d >= 1 ? 'blue' : 'red')
-                    };
-                }
-            };
-        
+           
             return {
                 x: group.map(d => (d - 1) * 100),  // Converting to percentages from the base of 1
                 y: races,
@@ -58,19 +34,72 @@ function financial_cost(){
                 orientation: 'h',
                 type: 'bar',
                 text: arrows[i],
+                // specifiy which quadrant to plot the graph
+                xaxis: `x${i+1}`,
+                yaxis: `y${i+1}`,
                 marker: {
-                    pattern: create_pattern(pays[i])
+                    color:colors[i]    
                 }
+             
+                
             };
         });
         
-    
+        const titles= [{
+            text:"High Salary",
+            x:0.5,
+            y:1.25,
+            yref: 'y1 domain',
+            xref:'x1 domain',
+            align:'center',
+            showarrow:false
+        }, {
+            text:"Mid-High Salary",
+            x:0.5,
+            y:1.25,
+            yref: 'y2 domain',
+            xref:'x2 domain',
+            align:'center',
+            showarrow:false
+
+        }, {
+            text:"Mid-Low Salary",
+            x:0.5,
+            y:1.25,
+            yref: 'y3 domain',
+            xref:'x3 domain',
+            align:'center',
+            showarrow:false
+
+        }, {
+            text:"Low Salary",
+            x:0.5,
+            y:1.25,
+            yref: 'y4 domain',
+            xref:'x4 domain',
+            align:'center',
+            showarrow:false
+
+        }]
         const layout = {
             barmode: 'group',
+            grid: {
+                rows: 2,
+                columns: 2,
+                pattern: "independent"
+            },
+            showlegend: false,
+            xaxis1: { range: [-90, 90] },
+            xaxis2: { range: [-90, 90] },
+            xaxis3: { range: [-90, 90] },
+            xaxis4: { range: [-90, 90] },
+            annotations:titles,
+            width:1000,
+            height:550
           
         };
     
-        Plotly.newPlot('heatmap', bars, layout);
+        Plotly.newPlot('quadrantbar', bars, layout);
     }
 
     );

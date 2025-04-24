@@ -1,16 +1,18 @@
 body {
   
+  display: flex;
+  justify-content: center;
+  align-items: center; 
 }
 
 .container {
-    display: flex;
-    flex-direction: column;      
-    align-items: center;         
-    height: 100vh;               
-  }
+  display: flex;
+  flex-direction: column; /* stack content vertically */
+  justify-content: center; 
+  align-items: center; 
+}
 
-  
-#heatmap {
-    width:900px;
-    height:700px;
+#quadrantbar {
+  width: 70%;
+  height: 70%; 
 }
