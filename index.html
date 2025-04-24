@@ -5,11 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Final Project</title>
     <script src="https://cdn.plot.ly/plotly-3.0.1.min.js" charset="utf-8"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script type="module" src="js/script.js"></script>
+    <script type="module" src="js/financial_cost.js"></script>
 </head>
 <body>
+
+
+    
     <div class="container"> <!-- Centers content and sets max width -->
         <h1>The Cost of Being Black in America</h1>
+
+        <div class="select" style="width:200px;">
+            <select id="select">
+              <option value="Year">Select Year</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+            </select>
+          </div>
+
         <div id="quadrantbar"></div>
         <p>The Incomes in this graph are based on the 2022 blah blah blah and were retrieved by calcualting the median income for the different occupations
             where High is the average of anything above the Q3 Mid-High is the average of anything between Q2 and Q3, Mid-Low is the average anything between Q1 and Q2 and 
@@ -19,8 +41,6 @@
 
   
 
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script type="module" src="js/script.js"></script>
-    <script type="module" src="js/financial_cost.js"></script>
+   
 </body>
 </html>

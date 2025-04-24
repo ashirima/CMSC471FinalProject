@@ -1,16 +1,16 @@
 // Initialize the financial cost visualization
 // export function to be able to use in script.js
-export function init(){
-    financial_cost();
+export function init(year){
+    financial_cost(year);
 }
 
 
 // Creates the visualization for the Finacial Cost
-function financial_cost(){
+function financial_cost(year){
 
-    calc_finance_data().then(ratio_data=>{
+ 
+    calc_finance_data(year).then(ratio_data=>{
 
-        console.log(ratio_data)
 
         const pays = ["High Salary", "Mid-High Salary", "Mid-Low Salary", "Low Salary"]
         const races = ['White', 'Asian', 'Black', 'Hispanic'];
@@ -46,56 +46,161 @@ function financial_cost(){
         });
         
         const titles= [{
-            text:"High Salary",
+            text: '<span style="font-weight:700;font-size:14">High Salary</span>',
             x:0.5,
-            y:1.25,
+            y:1.15,
             yref: 'y1 domain',
             xref:'x1 domain',
             align:'center',
             showarrow:false
         }, {
-            text:"Mid-High Salary",
+            text: '<span style="font-weight:700;font-size:14">Mid-High Salary</span>',
             x:0.5,
-            y:1.25,
+            y:1.15,
             yref: 'y2 domain',
             xref:'x2 domain',
             align:'center',
             showarrow:false
 
         }, {
-            text:"Mid-Low Salary",
+            text: '<span style="font-weight:700;font-size:14">Mid-Low Salary</span>',
             x:0.5,
-            y:1.25,
+            y:1.15,
             yref: 'y3 domain',
             xref:'x3 domain',
             align:'center',
             showarrow:false
 
         }, {
-            text:"Low Salary",
+            text: '<span style="font-weight:700;font-size:14">Low Salary</span>',
             x:0.5,
-            y:1.25,
+            y:1.15,
             yref: 'y4 domain',
             xref:'x4 domain',
             align:'center',
-            showarrow:false
+            showarrow:false,
+            
 
         }]
+
+        const shapes = [
+            {
+              type: 'rect',
+              xref: 'x1 domain',
+              yref:'y1 domain',
+              x0: -0.20,
+              x1: 1.10,
+              y1: 1.23,
+              y0: -0.20,
+              line: {
+                width: 2
+              }
+            },
+            {
+              type: 'rect',
+              xref: 'x2 domain',
+              yref:'y2 domain',
+              x0: -0.15,
+              x1: 1.10,
+              y1: 1.23,
+              y0: -0.20,
+              line: {
+                color: 'black',
+                width: 2
+              }
+            },
+            {
+                type: 'rect',
+                xref: 'x3 domain',
+                yref:'y3 domain',
+                x0: -0.20,
+                x1: 1.10,
+                y1: 1.23,
+                y0: -0.20,
+                line: {
+                  width: 2
+                }
+              },
+              {
+                type: 'rect',
+                xref: 'x4 domain',
+                yref:'y4 domain',
+                x0: -0.15,
+                x1: 1.10,
+                y1: 1.23,
+                y0: -0.20,
+                line: {
+                  color: 'black',
+                  width: 2
+                }
+              },
+           
+         
+        
+          ];
+
         const layout = {
             barmode: 'group',
             grid: {
                 rows: 2,
                 columns: 2,
                 pattern: "independent"
+                
+            },
+            font: {
+                family: 'Open Sans, sans-serif'
             },
             showlegend: false,
-            xaxis1: { range: [-90, 90] },
-            xaxis2: { range: [-90, 90] },
-            xaxis3: { range: [-90, 90] },
-            xaxis4: { range: [-90, 90] },
+            xaxis1: { 
+                range: [-90, 90],
+                title: {
+                    text: '% Underrepresented or Overrepresented',
+                    standoff: 5,
+                    font: {
+                        size:12
+                    }
+                    
+                },
+                side: 'bottom',
+
+             },
+            xaxis2: { 
+                range: [-90, 90],
+                title: {
+                    text: '% Underrepresented or Overrepresented',
+                    standoff: 5,
+                    font: {
+                        size:12
+                    }
+                    
+                },
+                side: 'bottom', },
+            xaxis3: { 
+                range: [-90, 90],
+                title: {
+                    text: '% Underrepresented or Overrepresented',
+                    standoff: 5,
+                    font: {
+                        size:12
+                    }
+                    
+                },
+                side: 'bottom' },
+            xaxis4: { 
+                range: [-90, 90],
+                title: {
+                    text: '% Underrepresented or Overrepresented',
+                    standoff: 5,
+                    font: {
+                        size:12
+                    }
+                    
+                },
+                side: 'bottom', },
             annotations:titles,
             width:1000,
-            height:550
+            height:650,
+            shapes: shapes
           
         };
     
@@ -112,7 +217,7 @@ function financial_cost(){
 // calculate and import the finance data,
 // made this async cause we need access
 // to some variables right when we return
-async function calc_finance_data(){
+async function calc_finance_data(year){
 
     // holds all the ratio data and the 
     // names for the occupations
@@ -126,59 +231,82 @@ async function calc_finance_data(){
     // Import the median income by occupation data 
     await d3.csv("./data/median_by_occupations.csv", d => ({        
         occupation: d.Occupation,
+        number_workers_2024: +d.Number_of_workers_2024.replace(/,/g, ""),
+        median_2024: +d.Median_weekly_earnings_2024.replace(/,/g, ""),
         number_workers_2023: +d.Number_of_workers_2023.replace(/,/g, ""),
         median_2023: +d.Median_weekly_earnings_2023.replace(/,/g, ""),
         number_workers_2022: +d.Number_of_workers_2022.replace(/,/g, ""),
-        median_2022: +d.Median_weekly_earnings_2022.replace(/,/g, "")
+        median_2022: +d.Median_weekly_earnings_2022.replace(/,/g, ""),
+        number_workers_2021: +d.Number_of_workers_2021.replace(/,/g, ""),
+        median_2021: +d.Median_weekly_earnings_2021.replace(/,/g, ""),
+        number_workers_2020: +d.Number_of_workers_2020.replace(/,/g, ""),
+        median_2020: +d.Median_weekly_earnings_2020.replace(/,/g, "")
     }))
     .then(data => {
         // sort the occupations by the ones that earn the most so we can 
-        // order it on the heat map
 
-        //const median_year = `median_${year}` uncomment later, depending on the year they select change this
-        const median_year = `median_2023`
+        const median_year = `median_${year}`
 
         // remove NaN values then sort by the median salary
         data = data.filter(d => !isNaN(d[median_year])); 
+
         data.sort((a, b) => b[median_year] - a[median_year]);
 
         for (let i =0; i<data.length;i++){
             occupation_names.push(data[i].occupation);
+            
             occupation_salary.push(data[i][median_year]);
         }
         first_data = data;
+       
     })
 
     // import the race percents data
     await d3.csv("./data/race_percents.csv", d => ({        
         occupation: d.Occupation,
+        white_2024: +d.White_2024,
+        black_2024: +d.Black_or_African_American_2024,
+        asian_2024: +d.Asian_2024,
+        hispanic_2024: +d.Hispanic_or_Latino_2024,
+
         white_2023: +d.White_2023,
         black_2023: +d.Black_or_African_American_2023,
         asian_2023: +d.Asian_2023,
         hispanic_2023: +d.Hispanic_or_Latino_2023,
+
         white_2022: +d.White_2022,
         black_2022: +d.Black_or_African_American_2022,
         asian_2022: +d.Asian_2022,
         hispanic_2022: +d.Hispanic_or_Latino_2022,
+       
+        white_2021: +d.White_2021,
+        black_2021: +d.Black_or_African_American_2021,
+        asian_2021: +d.Asian_2021,
+        hispanic_2021: +d.Hispanic_or_Latino_2021,
+
+              
+        white_2020: +d.White_2020,
+        black_2020: +d.Black_or_African_American_2020,
+        asian_2020: +d.Asian_2020,
+        hispanic_2020: +d.Hispanic_or_Latino_2020,
 
     }))
     .then(data => {
-        
-        //const median_year = `median_${year}` uncomment later, depending on the year they select change this
-        const median_year = `2023`
+        const median_year = year
 
         // merge the data based on the occupation names
         for (let i =0; i<first_data.length;i++){
             const occupation_name = first_data[i].occupation;
             for(let j =0;j<data.length;j++){
                 if(occupation_name == data[j].occupation){
-
-                    
                     // Filter out NaN values
                     if( first_data[i].occupation !="" &&  !isNaN(first_data[i][`median_${median_year}`]) &&
                     !isNaN(data[j][`white_${median_year}`]) &&  !isNaN(data[j][`black_${median_year}`])
                         &&  !isNaN(data[j][`asian_${median_year}`]) &&  !isNaN(data[j][`hispanic_${median_year}`])){
                         // push to merge the two datasets
+                        
+
+
                         merge.push({
                             occupation: first_data[i].occupation,
                             median: first_data[i][`median_${median_year}`],
@@ -192,7 +320,6 @@ async function calc_finance_data(){
                 }
             }
         }
-
 
         // Get all of the base values for each race and the base median total
         const base_white =  merge.find(d => d.occupation == "Total, full-time wage and salary workers").white;

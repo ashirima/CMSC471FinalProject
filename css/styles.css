@@ -5,14 +5,30 @@ body {
   align-items: center; 
 }
 
+h1{
+  font-family: 'Raleway', sans-serif;
+}
+p{
+  font-family: 'Open Sans';
+}
+
 .container {
+  margin:2%;
   display: flex;
   flex-direction: column; /* stack content vertically */
   justify-content: center; 
   align-items: center; 
 }
 
-#quadrantbar {
-  width: 70%;
-  height: 70%; 
+.select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+
+#quadrantbar {
+  align-items: center;
+  justify-content: center;
+}
+
