@@ -13,11 +13,11 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script type="module" src="js/script.js"></script>
     <script type="module" src="js/financial_cost.js"></script>
+    <script type="module" src="js/home_cost.js"></script>
+    
 </head>
 <body>
 
-
-    
     <div class="container"> <!-- Centers content and sets max width -->
         <h1>The Cost of Being Black in America</h1>
 
@@ -37,7 +37,34 @@
             where High is the average of anything above the Q3 Mid-High is the average of anything between Q2 and Q3, Mid-Low is the average anything between Q1 and Q2 and 
         Low is the average of anything lower than Q1 </p>
 
+
+        <div class="select" style="width:200px;">
+            <select id="select-year">
+              <option value="Year">Select Year</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+            </select>
+          </div>
+
+          <div class="select" style="width:200px;">
+            <select id="select-wealth-value">
+              <option value="Year">Select Wealth Measure</option>
+              <option value="Assets">Assets</option>
+              <option value="Real estate">Real Estate</option>
+              <option value="Mortgages">Mortgages</option>
+            </select>
+          </div>
+
+        <div id="waffle-chart"></div>
+        
+
     </div>
+
+    
+
 
   
 
