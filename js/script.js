@@ -20,8 +20,10 @@ function selectWealthValue(){
 
     if(asset !="Select Wealth Measure:" && year!="Select Year:"){
         homeinit(year, asset);
-    }
-  
+        document.getElementById('head-population').innerHTML = `100 squares representing race breakdown <br>in America in ${year}`;
+        console.log(asset)
+        document.getElementById('head-ownership').innerHTML = `100 squares representing race breakdown of all ${asset} ownership in America in ${year}`;
+    } 
 }
 
 
