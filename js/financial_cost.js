@@ -39,7 +39,7 @@ function financial_cost(year){
                 xaxis: `x${i+1}`,
                 yaxis: `y${i+1}`,
                 marker: {
-                    color:colors[i]    
+                    color:"#22223B" 
                 }
              
                 
@@ -142,6 +142,8 @@ function financial_cost(year){
         // creating the layout for the graphs
         const layout = {
             barmode: 'group',
+            paper_bgcolor: '#E7D6CD', 
+            plot_bgcolor: '#E7D6CD',  
             grid: {
                 rows: 2,
                 columns: 2,

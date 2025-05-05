@@ -13,29 +13,109 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script type="module" src="js/script.js"></script>
     <script type="module" src="js/financial_cost.js"></script>
+    <script type="module" src="js/home_cost.js"></script>
+    
 </head>
 <body>
 
-
     
     <div class="container"> <!-- Centers content and sets max width -->
-        <h1>The Cost of Being Black in America</h1>
 
-        <div class="select" style="width:200px;">
-            <select id="select">
-              <option value="Year">Select Year</option>
-              <option value="2024">2024</option>
-              <option value="2023">2023</option>
-              <option value="2022">2022</option>
-              <option value="2021">2021</option>
-              <option value="2020">2020</option>
-            </select>
+        <div class="header"><!-- neat header for the website-->
+            <h1>The Cost of Being Black in America</h1>
+            <p>An analysis on why Black Americans are "behind" when it comes to economic disparities.</p>
           </div>
+        
 
-        <div id="quadrantbar"></div>
-        <p>The Incomes in this graph are based on the 2022 blah blah blah and were retrieved by calcualting the median income for the different occupations
-            where High is the average of anything above the Q3 Mid-High is the average of anything between Q2 and Q3, Mid-Low is the average anything between Q1 and Q2 and 
-        Low is the average of anything lower than Q1 </p>
+        <section class = "wealth_gap"><!-- Section explaining the wealth gap-->
+            <div class="container">
+            <h2>The Gap in Wealth Ownership</h2>
+
+            <p>Each of these squares represents one household in America by the racial identity of those living in the household</p>
+            <div id="squares"></div>
+
+            <p id="black-breakdown">As we add more squares we start to build the racial breakdown of households in America. In 2024, Black Americans made up 11% of the households in America</p>
+            <div id="racial-breakdown"></div>
+
+
+            <p>In a perfect world each household would have an equal amount of wealth held from America's economy. This would look something like this...</p>
+            <div id="equal-breakdown"></div>
+
+            <p>However, we don't live in a perfect world. Wealth is unequally distributed to the population putting Black Americans at a severe
+                disadvantage when it comes to generational wealth. In reality some races hold more wealth than propoptional to their population. The distribution of wealth looks more like this...</p>
+            <div id="unequal-breakdown"></div>
+
+            
+            <p>Black Americans have and are facing economic disparities when it comes to generational wealth. There is evidence
+                of trends showing that Black Americans don't own wealth proportional to their population numbers. We can see
+                evidence of this in the below graphics. On the left side is race population breakdown by houeshold. On the 
+                right side is the race breakdown by household of wealth ownership. Click on the dropdown
+                menus to discover the changes in wealth ownership between years and between assets. (add source for data)
+            </p>
+            <div class="select"><!-- Drop Down menus for wealth gap-->
+                <select id="select-year">
+                  <option value="Year">Select Year</option>
+                  <option value="2024">2024</option>
+                  <option value="2023">2023</option>
+                  <option value="2022">2022</option>
+                  <option value="2021">2021</option>
+                  <option value="2020">2020</option>
+                </select>
+              </div>
+    
+              <div class="select">
+                <select id="select-wealth-value">
+                  <option value="Year">Select Wealth Measure</option>
+                  <option value="Assets">All Assets</option>
+                  <option value="Real estate">Real Estate</option>
+                  <option value="Mortgage">Mortgage</option>
+                </select>
+              </div>
+
+            <div class="container" id="side-by-side">
+                <h3 id="head-population">100 squares representing household race breakdown in America in 2024</h3>
+                <h3 id="head-ownership">100 squares representing household race breakdown of all assets ownership in America in 2024</h3>
+            </div>
+            
+            <div id="waffle-chart"></div>
+
+            <p id="info-black-comp"></p>
+            </div>
+        </section>
+
+        <section class="income_gap"><!-- Section explaining the income gap-->
+            <div class="container">
+                <h2>The Gap in Graduation Rates and its Impact on Occupation Employment</h2>
+                <p>With less Black Americans graduating in higher education, we then see a trend in the types of employment 
+                    Black Americans are hired in. The following visual describes the under and overrepresentation of Black, White,
+                    Asian, and Hispanic Americans in four income levels. These income levels represent 
+                    the jobs that have a weekly income under the first quartile (Low), between the first quartile and median income (Mid-Low), between the 
+                    median the the third quartile (Mid-High), and above the third quartile (High). 
+                </p>
+
+            <div class="select">
+                <select id="select">
+                <option value="Year">Select Year</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+                </select>
+            </div>
+
+
+
+            <div id="quadrantbar"></div>
+
+            <p>From this visual we can see that Black Americans are statistically more likely to be overrepresented in lower paying jobs
+                and underrepresestend in higher paying jobs. This could be a result of the lack of education or the systemic impact of 
+                steering Black Americans to more service oriented jobs. (add source for data and this idea)
+            </p>
+          
+        </div>
+        </section>
+
 
 
         <div class="select" style="width:200px;">
@@ -52,7 +132,6 @@
 
     </div>
 
-  
 
    
 </body>
