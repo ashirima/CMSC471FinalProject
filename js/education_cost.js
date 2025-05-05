@@ -81,15 +81,19 @@ function education_cost(race) {
         marker: {
           colors: colors
         },
-        hoverinfo: "label+percent",
+        hoverinfo: "none",
         textinfo: "label+percent",
         sort: false,
-        textposition: 'outside'
+        textposition: 'outside',
+        textfont:{
+          color: '#22223B',
+          family: 'Open Sans'
+        }
       }];
       
 
       var layout = {
-        height: 700,
+        height: 600,
         width: 800,
         legend: {
           x: 2, // push legend to the right (default is 1)
@@ -99,15 +103,18 @@ function education_cost(race) {
         margin: {
           l: 150,
           r: 200,
-          t: 80,
-          b: 80
+          t: 100,
+          b: 100
         },
         title: {
           text: `${race} Education Attainment Rate in 2022`,
           font: {
-            size: 24
+            size: 24,
+            color: '#22223B',
+            family: 'Open Sans'
           }
-        }
+        },
+        paper_bgcolor: '#E7D6CD'
       };
 
       
