@@ -14,7 +14,6 @@ function financial_cost(year){
         // variables for labels and colors
         const pays = ["High Salary", "Mid-High Salary", "Mid-Low Salary", "Low Salary"]
         const races = ['White', 'Asian', 'Black', 'Hispanic'];
-        const colors = ['rgb(111,156,61)', "rgb(165,201,15)", "rgb(255,136,41)", "rgb(193,0,13)"]
 
         
 

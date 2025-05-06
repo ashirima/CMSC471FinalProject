@@ -43,28 +43,18 @@ function education_cost(race) {
 
      // Color mapping
       const yearColorMap = {
-        "No diploma": "#636EFA",
-        "GED": "#EF553B",
-        "High school diploma": "#00CC96",
-        "Some college, no degree": "#AB63FA",
-        "Associate's degree": "#FFA15A",
-        "Bachelor's degree": "#19D3F3",
-        "Master's degree": "#FF6692",
-        "Professional degree": "#B6E880",
-        "Doctoral degree": "#FF97FF"
+        "No diploma": "rgb(255,0,0)",
+        "High school level": "rgb(0,128,0)",
+        "2 years or less": "rgb(0,0,255)",
+        "4 or more years": "rgb(255,255,61)",
       };
 
       // fixed order for legend
       const fixedOrder = [
         "No diploma",
-        "GED",
-        "High school diploma",
-        "Some college, no degree",
-        "Associate's degree",
-        "Bachelor's degree",
-        "Master's degree",
-        "Professional degree",
-        "Doctoral degree"
+        "High school level",
+        "2 years or less",
+        "4 or more years",
       ];
       
       // Sort by fixed order
