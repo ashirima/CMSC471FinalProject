@@ -1,7 +1,7 @@
 import { init as financeinit } from './financial_cost.js';
 import { init as educationinit } from './education_cost.js'
 import { init as homeinit } from './home_cost.js';
-
+import { init as lifeinit} from './life_cost.js';
 
 // function for selecting year
 function selectYearFinance(){
@@ -11,6 +11,8 @@ function selectYearFinance(){
     }
   
 }
+
+
 
 // function for selecting year and wealth value
 function selectWealthValue(){
@@ -50,6 +52,7 @@ function init(){
     //initialize education cost graphic defaults to black
     educationinit("Black");
     homeinit("2024", "Assets");
+    lifeinit("2024");
 
 
 }
