@@ -52,7 +52,7 @@ function init(){
     //initialize education cost graphic defaults to black
     educationinit("Black");
     homeinit("2024", "Assets");
-    lifeinit("2024");
+    lifeinit("2021");
 
 
 }
