@@ -7,148 +7,61 @@ export function init(year){
 // create viz for incarceration rate
 function life_cost(year){
     read_data(year).then(incar_data=>{
-        console.log(incar_data.find(d=>d.state=="National"))
-        const national_avg = incar_data.find(d=>d.state=="National")
+       
+        // get all of the inc and pop vals
+        const black_inc = incar_data.map(val=>val.black_inc);
+        const white_inc = incar_data.map(val=>val.white_inc);
+        const black_pop = incar_data.map(val=>val.black_pop);
+        const white_pop = incar_data.map(val=>val.white_pop);
+        const states = incar_data.map(val=>val.state)
+        
+        var black_rates = {
+            x: black_pop,
+            y: black_inc,
+            mode: 'markers+text',
+            type: 'scatter',
+            name: 'Black Americans',
+            hovertext: states,
+            textposition: 'top center',
+            marker: {
+                size:12
+            }
 
-        // create viz for national averages
-        var data = [
-            {
-                type: 'scatter',
-                mode: 'markers',
-                x: [0.5],  
-                y: [1],  
-                marker: {
-                    size: national_avg.white_pop * 300,  
-                    color: '#1e81b0', 
-                    opacity: 0.7
-                },
-            },
-            {
-                type: 'scatter',
-                mode: 'markers',
-                x: [1],  
-                y: [1],  
-                marker: {
-                    size: national_avg.white_inc * 300,
-                    color: '#040f79',
-                    opacity: 0.7
-                },
-            },
-            {
-                type: 'scatter',
-                mode: 'markers',
-                x: [2],  
-                y: [1], 
-                marker: {
-                    size:  national_avg.black_pop * 300,  
-                    color: 'orange',
-                    opacity: 0.7
+        };
+
+        var white_rates = {
+            x: white_pop,
+            y: white_inc,
+            mode: 'markers+text',
+            type: 'scatter',
+            name: 'White Americans',
+            hovertext: states,
+            textposition: 'top center',
+            marker: {
+                size:12
+            }
+
+        };
+
+        var layout = {
+            xaxis:{
+                range:[0,1],
+                title: {
+                    text: '% of Population made up of specified race'
                 }
             },
-            {
-                type: 'scatter',
-                mode: 'markers',
-                x: [2.5],
-                y: [1],  
-                marker: {
-                    size:  national_avg.black_inc * 300,  
-                    color: '#794504',
-                    opacity: 0.7
+            yaxis:{
+                range: [0,1],
+                title: {
+                    text: '% of Incarcerated Individuals made up of specified race'
                 }
             }
-        ];
-        const layout = {
-            xaxis: { showgrid: false,  showticklabels: false, zeroline: false},
-            yaxis: { showgrid: false, showticklabels: false, zeroline: false},
-            width:650,
-            height:450,
-            margin: {
-                t: 30,   
-                b: 20    
-              },
-            paper_bgcolor: '#F2E9E4', 
-            plot_bgcolor: '#F2E9E4',  
-            showlegend:false,
-          };
+        }
 
-        Plotly.newPlot('circles-comp-national', data, layout);
+        var data = [black_rates, white_rates];
 
+        Plotly.newPlot('line-chart', data, layout)
 
-
-     var row = 0;
-     var col = 0.5;
-     const circles = [];
-     // create viz for the 50 states
-     incar_data.forEach((curr_data) => { 
-
-        circles.push({
-            type: 'scatter',
-            mode: 'markers',
-            x: [col],  
-            y: [row],  
-            marker: {
-                size: curr_data.white_pop * 50,  
-                color: '#1e81b0', 
-                opacity: 0.7
-            },
-        })
-
-        circles.push({
-            type: 'scatter',
-            mode: 'markers',
-            x: [col+0.3],  
-            y: [row],  
-            marker: {
-                size: curr_data.white_inc * 50,
-                color: '#040f79',
-                opacity: 0.7
-            },
-        })
-        circles.push({
-            type: 'scatter',
-            mode: 'markers',
-            x: [col+1.5],  
-            y: [row], 
-            marker: {
-                size:  curr_data.black_pop * 50,  
-                color: 'orange',
-                opacity: 0.7
-            }
-        })
-        circles.push({
-            type: 'scatter',
-            mode: 'markers',
-            x: [col + 2],
-            y: [row],  
-            marker: {
-                size:  curr_data.black_inc * 50,  
-                color: '#794504',
-                opacity: 0.7
-            }
-        })
-
-
-        row = row + 1;
-
-        const layout = {
-            xaxis: { showgrid: false,  showticklabels: false, zeroline: false},
-            yaxis: { showgrid: false, showticklabels: false, zeroline: false},
-            width:650,
-            height:1500,
-            margin: {
-                t: 30,   
-                b: 20    
-              },
-            paper_bgcolor: '#F2E9E4', 
-            plot_bgcolor: '#F2E9E4',  
-            showlegend:false,
-          };
-
-        Plotly.newPlot('circles-states', circles, layout);
-
-
-
-     })
 
 
 
