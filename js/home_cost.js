@@ -134,62 +134,140 @@ function squares(){
       Plotly.newPlot('squares', [square_traces_population], layout);
      
       
-
 }
 
 // create visualization for explaining what a perfect world and what our world looks like
-// takes in boolean equal to specifiy which graphic to plot
 function equal_unequal(equal){
+
+    const races = ["White", "Black", "Hispanic", "Asian"]
 
     // squares for the population and wealth distribution
     const population_squares = [];
     const wealth_squares = [];
 
-    // population representation, 9 squares
+    // layout for the sqaures
+    const space = 8
+    var curr_row = 1;
+    var curr_col = 1;
+    const max_squares = 16;
+
+    // population representation, initially 4 squares one of each race
     population_squares.push({
         race: "White",
         x: 1 * 8, // the 1 is the spacing
         y: 2,        
     }, {
-        race: "White",
+        race: "Black",
         x: 2 * 8, 
         y: 2  
     }, {
-        race: "White",
+        race: "Hispanic",
         x: 3 * 8, 
         y: 2 
     }, {
         race: "Other",
-        x: 1 * 8, 
-        y: 1
-    }, {
-        race: "Other",
-        x: 2 * 8, 
-        y: 1
-    }, {
-        race: "Black",
-        x: 3 * 8, 
-        y: 1
-    },  {
-        race: "Black",
-        x: 1 * 8, 
-        y: 0
-    }, {
-        race: "Hispanic",
-        x: 2 * 8, 
-        y: 0
-    }, {
-        race: "Hispanic",
-        x: 3 * 8, 
-        y: 0
+        x: 4 * 8, 
+        y: 2
     })
 
-    // wealth representation for the unfair amount
-    if (equal == false){
+    // everytime someone clicks the add square button, it adds another square
+    function add_squares(){
+        // if we didn't hit the max squares keep adding a random race
+        if(population_squares.length != max_squares){
+            let new_square = {
+                race: races[Math.floor(Math.random() * 3)], // get a random race
+                x: curr_col * space,
+                y: curr_row
+            }
+
+
+            population_squares.push(new_square);
+
+            // if its the equal representation just push the square
+            if(equal){
+                wealth_squares.push(new_square);
+            } else {
+                // if its unequal you have a 82% chance of getting White, 12% chance of getting other
+                // 4% chance of getting Black, 2% chance of getting Hispanic
+                var chance = Math.random() * 100
+                let new_wealth_square = {};
+                if(chance<82){
+                    new_wealth_square = {
+                        race: "White",
+                        x: curr_col * space,
+                        y : curr_row
+                    }
+                } else if (chance<94){
+                    new_wealth_square = {
+                        race: "Other",
+                        x: curr_col * space,
+                        y : curr_row
+                    }
+                } else if (chance<98){
+                    new_wealth_square = {
+                        race: "Black",
+                        x: curr_col * space,
+                        y : curr_row
+                    }
+                } else {
+                    new_wealth_square = {
+                        race: "Hispanic",
+                        x: curr_col * space,
+                        y : curr_row
+                    }
+                }
+                wealth_squares.push(new_wealth_square);
+                
+            }
+
+            curr_col = curr_col + 1;
+            // start new row if we reach the end of the columns
+            if(curr_col > 4){
+                curr_col = 1;
+                curr_row = curr_row -1;
+    
+            }
+    
+            // redraw with the new square
+            redraw();
+        }
+       
+      
+    }
+
+    // reset the viz with just the four squares
+    function reset_viz(){
+        while(population_squares.length>4){
+            population_squares.pop();
+            wealth_squares.pop();
+
+        }
+        // reset the beginning rows and cols
+        curr_row = 1;
+        curr_col = 1;
+
+        // redraw viz with initial squares
+        redraw();
+    }
+    // change button listener depending on if its equal or unequal
+    if(equal){
+        document.getElementById("add-square-equal").addEventListener("click", add_squares);
+        document.getElementById("reset-square-equal").addEventListener("click", reset_viz);
+    } else {
+        document.getElementById("add-square-unequal").addEventListener("click", add_squares);
+        document.getElementById("reset-square-unequal").addEventListener("click", reset_viz);
+    }
+   
+
+
+   if(equal){
+        // if we are doing the equal viz just set the wealth squares to the population squares
+        population_squares.forEach(d=>wealth_squares.push(d))
+   } else{
         wealth_squares.push({
             race: "White",
             x: 1 * 8, // the 1 is the spacing
-            y: 2 
+            y: 2,        
         }, {
             race: "White",
             x: 2 * 8, 
@@ -199,132 +277,121 @@ function equal_unequal(equal){
             x: 3 * 8, 
             y: 2 
         }, {
-            race: "White",
-            x: 1 * 8, 
-            y: 1
-        }, {
-            race: "White",
-            x: 2 * 8, 
-            y: 1
-        }, {
-            race: "White",
-            x: 3 * 8, 
-            y: 1
-        },  {
             race: "Other",
-            x: 1 * 8, 
-            y: 0
-        }, {
-            race: "Black",
-            x: 2 * 8, 
-            y: 0
-        }, {
-            race: "Hispanic",
-            x: 3 * 8, 
-            y: 0
+            x: 4 * 8, 
+            y: 2
         })
-
-    } else {
-        // if we are doing the equal viz just set the wealth squares to the population squares
-       population_squares.forEach(d=>wealth_squares.push(d))
-    }
+   }
     
-    // create visualiztion for the population 9 squares
-    const square_traces_population = {
-        x: population_squares.map(d => d.x),
-        y: population_squares.map(d => d.y),
-        mode: 'markers',
-        type: 'scatter',
-        text: population_squares.map(d => d.race),
-        hoverinfo: 'text', 
-        marker: {
-          size: 25,
-          color: population_squares.map(d => {
-            if (d.race === "White"){
-                return "red"
-            };
-            if (d.race === "Black"){
-                return "yellow"
-            };
-            if (d.race === "Hispanic"){
-                return "blue";
-            } 
-            if (d.race === "Other"){
-                return "green";
-            } 
-          }),
-          symbol: 'square'
-        },
-        
-      };
-   
-      // create visualiztion for the wealth 9 squares
-      const squares_wealth_traces = {
-        x: wealth_squares.map(d => d.x),
-        y: wealth_squares.map(d => d.y),
-        mode: 'markers+text',
-        type: 'scatter',
-        hoverinfo: 'text',
-        hovertext: wealth_squares.map(d => d.race),
-        xaxis: 'x2',
-        yaxis: 'y2',
+    
+    
 
-        // show the money in the squares
-        text: wealth_squares.map(d => `$`),  
-        textfont: {
-            size: 14,
-            color: 'black'
-          },
-        marker: {
-          size: 25,
-          color: wealth_squares.map(d => {
-            if (d.race === "White"){
-                return "red"
-            };
-            if (d.race === "Black"){
-                return "yellow"
-            };
-            if (d.race === "Hispanic"){
-                return "blue";
-            } 
-            if (d.race === "Other"){
-                return "green";
-            } 
-          }),
-          symbol: 'square'
+    // redraws the viz if more squares were added
+    function redraw(){
+
+         // create visualiztion for the population 9 squares
+        const square_traces_population = {
+            x: population_squares.map(d => d.x),
+            y: population_squares.map(d => d.y),
+            mode: 'markers',
+            type: 'scatter',
+            text: population_squares.map(d => d.race),
+            hoverinfo: 'text', 
+            marker: {
+            size: 25,
+            color: population_squares.map(d => {
+                if (d.race === "White"){
+                    return "red"
+                };
+                if (d.race === "Black"){
+                    return "yellow"
+                };
+                if (d.race === "Hispanic"){
+                    return "blue";
+                } 
+                if (d.race === "Other"){
+                    return "green";
+                } 
+            }),
+            symbol: 'square'
+            },
+            
+        };
+    
+        // create visualiztion for the wealth up to 16 squares
+        const squares_wealth_traces = {
+            x: wealth_squares.map(d => d.x),
+            y: wealth_squares.map(d => d.y),
+            mode: 'markers+text',
+            type: 'scatter',
+            hoverinfo: 'text',
+            hovertext: wealth_squares.map(d => d.race),
+            xaxis: 'x2',
+            yaxis: 'y2',
+
+            // show the money in the squares
+            text: wealth_squares.map(d => `$`),  
+            textfont: {
+                size: 14,
+                color: 'black'
+            },
+            marker: {
+            size: 25,
+            color: wealth_squares.map(d => {
+                if (d.race === "White"){
+                    return "red"
+                };
+                if (d.race === "Black"){
+                    return "yellow"
+                };
+                if (d.race === "Hispanic"){
+                    return "blue";
+                } 
+                if (d.race === "Other"){
+                    return "green";
+                } 
+            }),
+            symbol: 'square'
+            }
+            
+
+        };
+
+        
+        // layout for the two 16 square groups
+        const layout = {
+            grid: {rows: 1, columns: 2, pattern: 'independent'},
+            xaxis: { showgrid: false,  showticklabels: false, zeroline: false},
+            yaxis: { showgrid: false, showticklabels: false, zeroline: false},
+            xaxis2: { showgrid: false,  showticklabels: false, zeroline: false},
+            yaxis2: { showgrid: false, showticklabels: false, zeroline: false},
+            width:600,
+            height:300,
+            margin: {
+                t: 30,   
+                b: 20    
+            },
+            paper_bgcolor: '#F2E9E4', 
+            plot_bgcolor: '#F2E9E4',  
+            showlegend:false,
+        };
+
+        if(equal){
+            // if its equal show equal breakdown otherwise show unequal breakdown
+            Plotly.newPlot('equal-breakdown', [square_traces_population, squares_wealth_traces], layout);
+            
+        } else{
+            Plotly.newPlot('unequal-breakdown', [square_traces_population, squares_wealth_traces], layout);
+
         }
         
+    }
 
-      };
-
-      
-      // layout for the two 9 square groups
-      const layout = {
-        grid: {rows: 1, columns: 2, pattern: 'independent'},
-        xaxis: { showgrid: false,  showticklabels: false, zeroline: false},
-        yaxis: { showgrid: false, showticklabels: false, zeroline: false},
-        xaxis2: { showgrid: false,  showticklabels: false, zeroline: false},
-        yaxis2: { showgrid: false, showticklabels: false, zeroline: false},
-        width:400,
-        height:200,
-        margin: {
-            t: 30,   
-            b: 20    
-          },
-        paper_bgcolor: '#F2E9E4', 
-        plot_bgcolor: '#F2E9E4',  
-        showlegend:false,
-      };
-
-      // if its equal show equal breakdown otherwise show unequal breakdown
-      if(equal == true){
-        Plotly.newPlot('equal-breakdown', [square_traces_population, squares_wealth_traces], layout);
-      } else {
-        Plotly.newPlot('unequal-breakdown', [square_traces_population, squares_wealth_traces], layout);
-
-      }
+    redraw();
+    
      
 }
+
 
 
 

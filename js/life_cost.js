@@ -8,61 +8,294 @@ export function init(year){
 function life_cost(year){
     read_data(year).then(incar_data=>{
        
+        const plot = document.getElementById('line-chart');
+        const back = document.getElementById('back');
+
+
         // get all of the inc and pop vals
         const black_inc = incar_data.map(val=>val.black_inc);
         const white_inc = incar_data.map(val=>val.white_inc);
         const black_pop = incar_data.map(val=>val.black_pop);
         const white_pop = incar_data.map(val=>val.white_pop);
-        const states = incar_data.map(val=>val.state)
-        
-        var black_rates = {
-            x: black_pop,
-            y: black_inc,
-            mode: 'markers+text',
-            type: 'scatter',
-            name: 'Black Americans',
-            hovertext: states,
-            textposition: 'top center',
-            marker: {
-                size:12
-            }
+        let states = incar_data.map(val=>val.state);
+        let black_diff = [];
+        let white_diff = [];
 
-        };
+        // get the ratio with each incarceration and population
+        for(let i = 0; i< black_inc.length;i++){
+            black_diff.push(black_inc[i]/black_pop[i]);
+            white_diff.push(white_inc[i]/white_pop[i]);
 
-        var white_rates = {
-            x: white_pop,
-            y: white_inc,
-            mode: 'markers+text',
-            type: 'scatter',
-            name: 'White Americans',
-            hovertext: states,
-            textposition: 'top center',
-            marker: {
-                size:12
-            }
-
-        };
-
-        var layout = {
-            xaxis:{
-                range:[0,1],
-                title: {
-                    text: '% of Population made up of specified race'
-                }
-            },
-            yaxis:{
-                range: [0,1],
-                title: {
-                    text: '% of Incarcerated Individuals made up of specified race'
-                }
-            }
         }
 
-        var data = [black_rates, white_rates];
+        // sort black diff and have everything else sort by black diff
+        let sorted = [];
+        for(let i =0; i<black_diff.length;i++){
+            sorted[i] = [black_diff[i], white_diff[i], states[i]];
+        }
+        sorted.sort((a,b) => b[0] - a[0]);
 
-        Plotly.newPlot('line-chart', data, layout)
+
+        // get the results back in the original arays
+        black_diff = sorted.map(d=>d[0]);
+        white_diff = sorted.map(d=>d[1]);
+        states = sorted.map(d=>d[2]);
+
+        // make black bars
+        const blackBars = {
+            x: states,
+            y: black_diff.map(d=> -d), // flip them to go down,
+            text: black_diff.map((d,i)=>`${states[i]}: ${Math.abs(d.toFixed(2))}`),
+            type: 'bar',
+            marker: {
+                color: 'red'
+            },
+            hovertemplate: '%{text}',
+            name: 'Black Americans',
+            textposition: 'none'
+
+        }
+
+        // make white bars
+        const whiteBars = {
+            x: states,
+            y: white_diff,
+            type: 'bar',
+            marker: {
+                color: "blue"
+            },
+            text: white_diff.map((d,i)=>`${states[i]}: ${Math.abs(d.toFixed(2))}`),
+            hovertemplate: '%{text}',
+            name: 'White Americans',
+            textposition: 'none'
+
+        }
+
+        // layout for bars
+        const layout = {
+            width:950,
+            height:650,
+            margin: {
+                t: 20,
+                b: 145    
+            },
+            paper_bgcolor: '#F2E9E4', 
+            plot_bgcolor: '#F2E9E4',  
+            yaxis: {
+                title:{
+                    text:"Incarceration / Population Ratio",
+                },
+                zeroline: true,
+                tickvals: [-10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2],
+                ticktext: ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1', '0', '1', '2'] //make sure vals are positive even when going down    
+            },
+            xaxis: {
+                title:{
+                    text:"State"
+                },
+            },
+            barmode: 'overlay',
+            legend: {
+                "orientation": "h",
+                x:0.25,
+                y:1.1
+            }
+        
+        }
 
 
+        // call to show the bar graphs
+        function show_bars(){
+            // show the graph again
+            var data = [blackBars, whiteBars]
+            Plotly.newPlot(plot, data, layout);
+
+            // hide back button
+            back.style.display = 'none';
+
+            //add the listener back
+            plot.on('plotly_click', (data) => {
+
+                const index = data.points[0].pointIndex;
+                show_one_state(black_diff[index], white_diff[index], states[index]);
+                
+            });
+
+        }
+
+       // show details for one state
+        function show_one_state(black, white, state){
+
+
+
+            // show back button
+            back.style.display = 'inline-block';
+
+          
+            // round everything to the nearest 0.5
+            var black_ratio =  Math.round(black * 2) / 2;
+            var white_ratio =  Math.round(white * 2) / 2;
+
+  
+
+
+            let black_squares_arr = [];
+            let white_squares_arr = [];
+
+            // check if it's 0.5 to add in a half square
+            let black_five = false;
+            let white_five = false;
+
+
+            if (black_ratio % 1 == 0.5){
+                black_five = true;
+                black_ratio = black_ratio - 0.5;
+            }
+            if (white_ratio % 1 == 0.5){
+                white_five = true;
+                white_ratio = white_ratio - 0.5;
+            }
+
+
+            // add black squares
+            let x = 1;
+            let y = 0;
+            for(let i =0; i< black_ratio;i++){
+
+                black_squares_arr.push({
+                    x: x * 1,
+                    y: y,
+                    size: 24
+                })
+                x = x + 1;
+                if(x > 4){
+                    x = 1;
+                    y = y - 1
+                    
+                }
+
+            }
+
+            // add half square
+            if(black_five == true){
+                black_squares_arr.push({
+                    x: x * 1,
+                    y: y,
+                    size: 12
+                })
+            }
+
+
+            // add white squares
+            x = 1;
+            y = 0;
+            for(let i =0; i< white_ratio;i++){
+                white_squares_arr.push({
+                    x: x * 1,
+                    y: y,
+                    size: 24
+
+                })
+                x = x + 1;
+
+                x = x + 1;
+                if(x > 4){
+                    x = 1;
+                    y = y - 1
+                    
+                }
+            }
+
+            // add half square
+            if(white_five == true){
+                white_squares_arr.push({
+                    x: x * 1,
+                    y: y,
+                    size: 12
+                })
+            }
+
+
+
+            // if ratio has 0.5 add half sqaure
+            if(white_ratio % 0.5 == 1){
+            white_squares_arr.push({
+                x: x * 1,
+                y: y,
+                size: 12
+            })
+
+            }
+
+        
+
+
+            // create visualiztion for black squares
+            const black_squares = {
+                x: black_squares_arr.map(d => d.x),
+                y: black_squares_arr.map(d => d.y),
+                xaxis: 'x1',
+                yaxis: 'y1',
+                mode: 'markers',
+                type: 'scatter',
+                marker: {
+                    color: 'black',
+                    symbol: 'square',
+                    size: black_squares_arr.map(d => d.size),
+            }};
+
+
+            // create visualiztion for white squares
+              const white_squares = {
+                x: white_squares_arr.map(d => d.x),
+                y: white_squares_arr.map(d => d.y),
+                xaxis: 'x2',
+                yaxis: 'y2',
+                mode: 'markers',
+                type: 'scatter',
+                marker: {
+                color: 'white',
+                symbol: 'square',
+                size: white_squares_arr.map(d => d.size),
+            }};
+
+
+
+             // layout for the two square groups
+            const layout = {
+                grid: {rows: 1, columns: 2, pattern: 'independent'},
+                xaxis: { showgrid: false,  showticklabels: false, zeroline: false},
+                yaxis: { showgrid: false, showticklabels: false, zeroline: false},
+                xaxis2: { showgrid: false,  showticklabels: false, zeroline: false},
+                yaxis2: { showgrid: false, showticklabels: false, zeroline: false},
+                width:800,
+                height:250,
+                margin: {
+                    t: 30,   
+                    b: 20    
+                },
+                paper_bgcolor: '#F2E9E4', 
+                plot_bgcolor: '#F2E9E4',  
+                showlegend:false,
+            };
+        
+
+
+            Plotly.newPlot(plot, [black_squares, white_squares], layout);
+        }
+
+
+
+        // call to show the initial graphs 
+        show_bars();
+
+        // they clicked the back button so show the previous graphic
+        back.onclick = show_bars;
+
+    
+
+
+        
 
 
      })
