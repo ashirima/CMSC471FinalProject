@@ -71,7 +71,7 @@
     
               <div class="select">
                 <select id="select-wealth-value">
-                  <option value="Year">Select Wealth Measure</option>
+                  <option value="Wealth">Select Wealth Measure</option>
                   <option value="Assets">All Assets</option>
                   <option value="Real estate">Real Estate</option>
                   <option value="Mortgage">Mortgage</option>
@@ -88,10 +88,12 @@
             <p id="info-black-comp"></p>
             </div>
         </section>
-
-        <section class="income_gap"><!-- Section explaining the income gap-->
+        <hr> 
+        <section class="disparities"><!-- Section explaining the disparities-->
             <div class="container">
-                <h2>The Gap in Graduation Rates and its Impact on Occupation Employment</h2>
+                <h2>Why Does the Wealth Gap Exist?</h2>
+
+                <h3>Disparity in Higher Education</h3>
                 
                 <p>In many cases, higher paying professional careers are obtained by pursuing higher education. However, Black people generally have less access
                   to higher education, which causes them to be underrepresented in higher paying fields. Below is a piechart that shows the breakdown of
@@ -113,7 +115,40 @@
               <br>
 
 
-              <p>With less Black Americans graduating in higher education, we then see a trend in the types of employment 
+              <h3>Disparity in Incarceration Rates</h3>
+              <p>Another impact on the diverging wealth gap is the disparities that exists within the incarceration rate of Black Americans. Black Americans are 
+                nationally marginalized against when it comes to the rate at which they are incarcerated compared to their population. This disproportional rate
+                decreases the amount of working Black Americans and therefore the amount of wealth Black Americans can hold. Each bar in the following graph represents
+                the rate at which White Americans and Black Americans are incarcerated within each state. Click on each bar to see more details on the 
+                disparities of the incarceration rates in each state. 
+              </p>
+
+              <div class="select">
+                <select id="selectIncar">
+                <option value="Year">Select Year</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+                <option value="2019">2019</option>
+                </select>
+            </div>
+
+
+              <p id="national-incar"></p>
+            
+
+              <button id="back" style="display:none;">Go Back</button>
+              <div id="line-chart"></div>
+       
+        </section>
+        <hr> 
+
+        <section class="income_gap"><!-- Section explaining the income-gap-->
+          <div class="container">
+
+            <h2>Impact of Systemic Disparities on Employment</h2>
+
+            <p>With less Black Americans graduating in higher education and more Black Americans incarcerated, we then see a trend in the types of employment 
                 Black Americans are hired in. The following visual describes the under and overrepresentation of Black, White,
                 Asian, and Hispanic Americans in four income levels. These income levels represent 
                 the jobs that have a weekly income under the first quartile (Low), between the first quartile and median income (Mid-Low), between the 
@@ -121,6 +156,10 @@
             </p>
 
 
+            <p>From this visual we can see that Black Americans are statistically more likely to be overrepresented in lower paying jobs
+              and underrepresented in higher paying jobs. This could be a result of the lack of education or the systemic impact of 
+              steering Black Americans to more service oriented jobs. (add source for data and this idea)
+            </p>
             <div class="select">
                 <select id="select">
                 <option value="Year">Select Year</option>
@@ -134,17 +173,12 @@
 
             <div id="quadrantbar"></div>
 
-            <p>From this visual we can see that Black Americans are statistically more likely to be overrepresented in lower paying jobs
-                and underrepresented in higher paying jobs. This could be a result of the lack of education or the systemic impact of 
-                steering Black Americans to more service oriented jobs. (add source for data and this idea)
-            </p>
-
-            <button id="back" style="display:none;">Back</button>
-            <div id="line-chart"></div>
-
+              
             
-          
-        </div>
+          </div>
+         </div>
+
+
         </section>
 
     </div>

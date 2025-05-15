@@ -10,14 +10,27 @@ function life_cost(year){
        
         const plot = document.getElementById('line-chart');
         const back = document.getElementById('back');
+        const incar_text = document.getElementById('national-incar');
+
+        // filter out for the national level
+        const filtered_data = incar_data.filter(d=>d.state!="National")
+
+        // get just the national level data
+        const national_data = incar_data.filter(d => d.state=="National")
+        const black_national_ratio = (national_data[0].black_inc/national_data[0].black_pop).toFixed(1)
+        const white_national_ratio = (national_data[0].white_inc/national_data[0].white_pop).toFixed(1)
+
+        // add in the text that talks about the national level
+        incar_text.innerText = `Nationally, Black Americans are represented at ${black_national_ratio}x their population in jails while
+        White Americans are only represented at ${white_national_ratio}x their populations in jails.`
 
 
         // get all of the inc and pop vals
-        const black_inc = incar_data.map(val=>val.black_inc);
-        const white_inc = incar_data.map(val=>val.white_inc);
-        const black_pop = incar_data.map(val=>val.black_pop);
-        const white_pop = incar_data.map(val=>val.white_pop);
-        let states = incar_data.map(val=>val.state);
+        const black_inc = filtered_data.map(val=>val.black_inc);
+        const white_inc = filtered_data.map(val=>val.white_inc);
+        const black_pop = filtered_data.map(val=>val.black_pop);
+        const white_pop = filtered_data.map(val=>val.white_pop);
+        let states = filtered_data.map(val=>val.state);
         let black_diff = [];
         let white_diff = [];
 
@@ -97,7 +110,7 @@ function life_cost(year){
             barmode: 'overlay',
             legend: {
                 "orientation": "h",
-                x:0.25,
+                x:0.32,
                 y:1.1
             }
         
@@ -129,12 +142,13 @@ function life_cost(year){
 
 
             // show back button
-            back.style.display = 'inline-block';
+            back.style.display = 'block';
 
           
             // round everything to the nearest 0.5
             var black_ratio =  Math.round(black * 2) / 2;
             var white_ratio =  Math.round(white * 2) / 2;
+            var diff = black_ratio - white_ratio;
 
   
 
@@ -256,6 +270,11 @@ function life_cost(year){
                 marker: {
                 color: 'white',
                 symbol: 'square',
+                // added so we can see the white better
+                line: {
+                    color: 'black',     
+                    width: 1            
+                  },
                 size: white_squares_arr.map(d => d.size),
             }};
 
@@ -272,11 +291,26 @@ function life_cost(year){
                 height:250,
                 margin: {
                     t: 30,   
-                    b: 20    
+                    b: 50    
                 },
                 paper_bgcolor: '#F2E9E4', 
                 plot_bgcolor: '#F2E9E4',  
                 showlegend:false,
+                // annotation for each state
+                annotations: [
+                    {
+                    x: 0.5,
+                    y: -0.10,           
+                    xref: 'paper',
+                    yref: 'paper',         
+                    text: `In ${state}, Black Americans are around ${diff} times more likely to be jailed than White Americans`,
+                    showarrow: false,
+                    font: {
+                        size: 14
+                    },
+                     
+                    }
+                  ],
             };
         
 

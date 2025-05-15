@@ -104,7 +104,8 @@ function education_cost(race) {
             family: 'Open Sans'
           }
         },
-        paper_bgcolor: '#E7D6CD'
+        paper_bgcolor: '#F2E9E4', 
+        plot_bgcolor: '#F2E9E4',  
       };
 
       
