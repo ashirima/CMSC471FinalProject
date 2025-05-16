@@ -332,7 +332,7 @@ function equal_unequal(equal){
             // show the money in the squares
             text: wealth_squares.map(d => `$`),  
             textfont: {
-                size: 14,
+                size: 20,
                 color: 'black'
             },
             marker: {
@@ -494,7 +494,7 @@ function home_cost(year, asset){
             type: 'scatter',
             text: wealth_squares.map(d => `$`),  // show the money in the squares
             textfont: {
-                size: 14,
+                size: 20,
                 color: 'black'
             },
             hovertext: wealth_squares.map(d => d.race),  //make sure hover text sticks as race when changing other text to $

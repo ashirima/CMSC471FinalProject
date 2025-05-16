@@ -89,7 +89,7 @@ p{
 
 }
 
-#back, #add-square-equal, #reset-square-equal, #add-square-unequal, #reset-square-unequal {
+#back, #add-square-equal, #reset-square-equal, #add-square-unequal, #reset-square-unequal, #top-ten-states, #last-ten-states {
     background-color: #C9ADA7;
     margin:1%;
     display: inline-block;
@@ -147,4 +147,10 @@ p{
 }
 #squares, #racial-breakdown, #equal-breakdown, #unequal-breakdown{
   margin-bottom: 4%;
+}
+
+#buttons {
+  display: flex;
+  gap: 20px; 
+ 
 }
