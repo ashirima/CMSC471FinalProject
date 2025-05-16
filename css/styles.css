@@ -51,10 +51,34 @@ p{
 }
 
 
+.wealth_gap .container #side-by-side  h3{
+  text-align: center;
+  flex: 1; 
+}
+
+
+
+
+.disparities{
+  justify-content: center;
+  align-items: center;
+  background-color: #E7D6CD;
+}
+
+.disparities .container {
+  margin-top: 0%;
+  margin-right: 5%;
+  margin-left: 5%;  
+  margin-bottom: 2%;
+
+}
+
+
+
 .income_gap{
   justify-content: center;
   align-items: center;
-  background-color: #F2E9E4;
+  background-color: #E7D6CD;
 }
 
 .income_gap .container {
@@ -65,9 +89,20 @@ p{
 
 }
 
-.wealth_gap .container #side-by-side  h3{
-  text-align: center;
-  flex: 1; 
+#back, #add-square-equal, #reset-square-equal, #add-square-unequal, #reset-square-unequal, #top-ten-states, #last-ten-states {
+    background-color: #C9ADA7;
+    margin:1%;
+    display: inline-block;
+    font-size: 16px;
+    border-color: #C9ADA7;
+    border-radius: 2px;
+    color: black;
+    padding: 10px 24px;
+    text-align: center;
+    
+    
+  
+  
 }
 
 .container {
@@ -112,4 +147,10 @@ p{
 }
 #squares, #racial-breakdown, #equal-breakdown, #unequal-breakdown{
   margin-bottom: 4%;
+}
+
+#buttons {
+  display: flex;
+  gap: 20px; 
+ 
 }

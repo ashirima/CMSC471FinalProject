@@ -28,12 +28,16 @@ function financial_cost(year){
 
            // return each graph
             return {
-                x: group.map(d => (d - 1) * 100),  // Converting to percentages from the base of 1
+                x: group.map(d => (d-1)),  // Converting to percentages from the base of 1
                 y: races,
                 name: pays[i],
                 orientation: 'h',
                 type: 'bar',
                 text: arrows[i],
+                textposition: 'outside',
+                textfont: {
+                    size: 16,
+                  },
                 // specifiy which quadrant to plot the graph
                 xaxis: `x${i+1}`,
                 yaxis: `y${i+1}`,
@@ -154,9 +158,10 @@ function financial_cost(year){
             },
             showlegend: false,
             xaxis1: { 
-                range: [-90, 90],
+                range: [-0.7, 0.7],
+                dtick: 0.3,
                 title: {
-                    text: '% Underrepresented or Overrepresented',
+                    text: 'Underrepresented                                                   Overrepresented',
                     standoff: 5, // add spacing between the graphs 
                     font: {
                         size:12
@@ -167,9 +172,10 @@ function financial_cost(year){
 
              },
             xaxis2: { 
-                range: [-90, 90],
+                range: [-0.7, 0.7],
+                dtick: 0.3,
                 title: {
-                    text: '% Underrepresented or Overrepresented',
+                    text: 'Underrepresented                                                   Overrepresented',
                     standoff: 5,
                     font: {
                         size:12
@@ -178,9 +184,10 @@ function financial_cost(year){
                 },
                 side: 'bottom', },
             xaxis3: { 
-                range: [-90, 90],
+                range: [-0.7, 0.7],
+                dtick: 0.3,
                 title: {
-                    text: '% Underrepresented or Overrepresented',
+                    text: 'Underrepresented                                                   Overrepresented',
                     standoff: 5,
                     font: {
                         size:12
@@ -189,9 +196,10 @@ function financial_cost(year){
                 },
                 side: 'bottom' },
             xaxis4: { 
-                range: [-90, 90],
+                range: [-0.7, 0.7],
+                dtick: 0.3,
                 title: {
-                    text: '% Underrepresented or Overrepresented',
+                    text: 'Underrepresented                                                   Overrepresented',
                     standoff: 5,
                     font: {
                         size:12
@@ -202,7 +210,16 @@ function financial_cost(year){
             annotations:titles,
             width:1000,
             height:650,
-            shapes: shapes
+            shapes: shapes,
+            paper_bgcolor: '#F2E9E4', 
+            plot_bgcolor: '#F2E9E4',
+            margin: {
+                r:70,
+                l:100,
+                b:70,
+                t:70
+            },
+            
           
         };
     
@@ -380,6 +397,9 @@ async function calc_finance_data(year){
             ratios[i].push(avg_asian/base_asian)
             ratios[i].push(avg_black/base_black)
             ratios[i].push(avg_hispanic/base_hispanic)
+            
+     
+
     
 
         }

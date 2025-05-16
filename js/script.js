@@ -19,7 +19,7 @@ function selectWealthValue(){
     const asset = document.getElementById('select-wealth-value').value;
     const year = document.getElementById('select-year').value;
 
-    if(asset !="Select Wealth Measure:" && year!="Select Year:"){
+    if(asset !="Wealth" && year!="Year"){
         homeinit(year, asset);
         document.getElementById('head-population').innerHTML = `100 squares representing race breakdown <br>in America in ${year}`;
         console.log(asset)
@@ -33,7 +33,15 @@ function selectRaceEducation(id, chart){
     if(race != "Race:"){
         educationinit(race, chart);
         console.log(race);
-    } 
+    }
+}
+
+
+function selectYearIncar(){
+    const year = document.getElementById('selectIncar').value;
+    if(year!="Year"){
+        lifeinit(year);
+    }  
 }
 
 
@@ -56,6 +64,9 @@ function init(){
     };
     
 
+    // allow user to change the year for life cost
+    document.getElementById("selectIncar").onchange = selectYearIncar;
+
     
     //initialize financial cost graphic, defaults to 2023
     financeinit("2024");
@@ -63,7 +74,9 @@ function init(){
     educationinit("Black", "pie1");
     educationinit("White", "pie2");
     homeinit("2024", "Assets");
-    lifeinit("2024");
+
+    //init life cost
+    lifeinit("2022");
 
 
 }

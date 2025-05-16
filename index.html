@@ -43,9 +43,19 @@
             <p>In a perfect world each household would have an equal amount of wealth held from America's economy. This would look something like this...</p>
             <div id="equal-breakdown"></div>
 
+            <div id="buttons">
+              <button id="add-square-equal">Click To Add Another Square</button>
+              <button id="reset-square-equal">Click To Reset</button>
+            </div>
+
             <p>However, we don't live in a perfect world. Wealth is unequally distributed to the population putting Black Americans at a severe
                 disadvantage when it comes to generational wealth. In reality some races hold more wealth than propoptional to their population. The distribution of wealth looks more like this...</p>
             <div id="unequal-breakdown"></div>
+            
+            <div id="buttons">
+              <button id="add-square-unequal">Click To Add Another Square</button>
+              <button id="reset-square-unequal">Click To Reset</button>
+            </div>
 
             
             <p>Black Americans have and are facing economic disparities when it comes to generational wealth. There is evidence
@@ -67,7 +77,7 @@
     
               <div class="select">
                 <select id="select-wealth-value">
-                  <option value="Year">Select Wealth Measure</option>
+                  <option value="Wealth">Select Wealth Measure</option>
                   <option value="Assets">All Assets</option>
                   <option value="Real estate">Real Estate</option>
                   <option value="Mortgage">Mortgage</option>
@@ -82,12 +92,15 @@
             <div id="waffle-chart"></div>
 
             <p id="info-black-comp"></p>
+            <p><small>Datasets for racial breakdown of wealth ownership in America can be found <a href="https://www.federalreserve.gov/releases/z1/dataviz/dfa/distribute/chart/#quarter:122;series:Private%20businesses;demographic:race;population:1,3,5,7;units:shares;range:1989.3,2020.1">here.</a></small></p>
             </div>
         </section>
-
-        <section class="income_gap"><!-- Section explaining the income gap-->
+        <hr> 
+        <section class="disparities"><!-- Section explaining the disparities-->
             <div class="container">
-                <h2>The Gap in Graduation Rates and its Impact on Occupation Employment</h2>
+                <h2>Why Does the Wealth Gap Exist?</h2>
+
+                <h3>Disparity in Higher Education</h3>
                 
                 <p>In many cases, higher paying professional careers are obtained by pursuing higher education. However, Black people generally have less access
                   to higher education, which causes them to be underrepresented in higher paying fields. Below is a piechart that shows the breakdown of
@@ -133,7 +146,66 @@
               <br>
 
 
-              <p>With less Black Americans graduating in higher education, we then see a trend in the types of employment 
+              <h3>Disparity in Incarceration Rates</h3>
+              <p>Another impact on the diverging wealth gap is the disparities that exists within the incarceration rate of Black Americans. Black Americans are 
+                nationally marginalized against when it comes to the rate at which they are incarcerated compared to their population. This disproportional rate
+                decreases the amount of working Black Americans and therefore the amount of wealth Black Americans can hold. Each bar in the following graph represents
+                the rate at which White Americans and Black Americans are incarcerated within each state. Click on each bar to see more details on the 
+                disparities of the incarceration rates in each state. 
+              </p>
+
+              <div class="select">
+                <select id="selectIncar">
+                <option value="Year">Select Year</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+                <option value="2019">2019</option>
+                </select>
+            </div>
+
+
+              <p id="national-incar"></p>
+            
+
+              <button id="back" style="display:none;">Go Back</button>
+              <div id="bar-chart"></div>
+
+              <p>Interestingly, the states that are populated with less Black Americans experience this disparity at higher levels
+                compared to states that are populated with more Black Americans. This disparity serves as a way to keep
+                Black Americans that are already low in population numbers from earning generational wealth through lower employment rates and
+                higher incarceration numbers. 
+                
+                You can explore this idea by clicking on the buttons below.
+              </p>
+            
+              <div id="buttons">
+                <button id="top-ten-states">View the 10 states with the highest population of Black Americans</button>
+                <button id="last-ten-states">View the 10 states with the lowest population by Black Americans</button>
+              </div>
+
+
+              <p><small>Datasets for racial breakdown of incarceration rates in 
+                <a href="https://bjs.ojp.gov/library/publications/prisoners-2019">2019, </a> 
+                <a href="https://bjs.ojp.gov/library/publications/prisoners-2020-statistical-tables">2020, </a> 
+                <a href="https://bjs.ojp.gov/library/publications/prisoners-2021-statistical-tables">2021,</a> and
+                <a href="https://bjs.ojp.gov/library/publications/prisoners-2022-statistical-tables">2022</a> 
+                and population breakdown for <a href="https://wonder.cdc.gov/single-race-single-year-v2021.html">2020</a> and
+                <a href="https://www.kff.org/other/state-indicator/distribution-by-raceethnicity/?currentTimeframe=0&sortModel=%7B%22colId%22:%22Location%22,%22sort%22:%22asc%22%7D">2019, 2021, 2022</a>
+                in America. 
+              </small></p>
+
+
+       
+        </section>
+        <hr> 
+
+        <section class="income_gap"><!-- Section explaining the income-gap-->
+          <div class="container">
+
+            <h2>Impact of Systemic Disparities on Employment</h2>
+
+            <p>With less Black Americans graduating in higher education and more Black Americans incarcerated, we then see a trend in the types of employment 
                 Black Americans are hired in. The following visual describes the under and overrepresentation of Black, White,
                 Asian, and Hispanic Americans in four income levels. These income levels represent 
                 the jobs that have a weekly income under the first quartile (Low), between the first quartile and median income (Mid-Low), between the 
@@ -141,6 +213,10 @@
             </p>
 
 
+            <p>From this visual we can see that Black Americans are statistically more likely to be overrepresented in lower paying jobs
+              and underrepresented in higher paying jobs. This could be a result of the lack of education or the systemic impact of 
+              steering Black Americans to more service oriented jobs. (add source for data and this idea)
+            </p>
             <div class="select">
                 <select id="select">
                 <option value="Year">Select Year</option>
@@ -153,13 +229,28 @@
             </div>
 
             <div id="quadrantbar"></div>
-
-            <p>From this visual we can see that Black Americans are statistically more likely to be overrepresented in lower paying jobs
-                and underrepresented in higher paying jobs. This could be a result of the lack of education or the systemic impact of 
-                steering Black Americans to more service oriented jobs. (add source for data and this idea)
+            <p> The ratios for this data were calculated by dividing the race's representation in the specified jobs
+              by the race's representation in the population. EX: If Black Americans made up 13% of the American population and 
+              6% of the population of high-income jobs, this would calculate to 0.46. We then subtract that number from 
+              1 which is our baseline and it gives us the ratio -0.53. Therefore Black Americans are underrepresented by a ratio
+              of 0.53. 
             </p>
-          
-        </div>
+
+            
+            <p><small>Datasets for employment racial breakdown for 
+              <a href="https://www.bls.gov/cps/aa2020/cpsaat11.htm">2020, </a> 
+              <a href="https://www.bls.gov/cps/aa2021/cpsaat11.htm">2021, </a> 
+              <a href="https://www.bls.gov/cps/aa2022/cpsaat11.htm">2022, </a> 
+              <a href="https://www.bls.gov/cps/data/aa2023/cpsaat11.htm">2023,</a> and
+              <a href="https://www.bls.gov/cps/cpsaat11.htm">2024</a> 
+            </small></p>
+            
+
+
+          </div>
+         </div>
+
+
         </section>
 
     </div>
