@@ -28,12 +28,15 @@ function selectWealthValue(){
 }
 
 // function for selecting race
-function selectRaceEducation(){
-    const race = document.getElementById('selectRace').value;
+function selectRaceEducation(id, chart){
+    const race = document.getElementById(id).value;
     if(race != "Race:"){
-        educationinit(race);
-    }
+        educationinit(race, chart);
+        console.log(race);
+    } 
 }
+
+
 
 // Initialize the website
 function init(){
@@ -43,14 +46,22 @@ function init(){
     document.getElementById("select-year").onchange = selectWealthValue;
 
 
-    // allow user to change the year for education cost
-    document.getElementById("selectRace").onchange = selectRaceEducation;
+    // allow user to change the races for education cost
+    document.getElementById("selectRace1").onchange = function () {
+        selectRaceEducation("selectRace1", "pie1");
+    };
+    
+    document.getElementById("selectRace2").onchange = function () {
+        selectRaceEducation("selectRace2", "pie2");
+    };
+    
 
     
     //initialize financial cost graphic, defaults to 2023
     financeinit("2024");
-    //initialize education cost graphic defaults to black
-    educationinit("Black");
+    //initialize education cost graphics default to black and white
+    educationinit("Black", "pie1");
+    educationinit("White", "pie2");
     homeinit("2024", "Assets");
     lifeinit("2024");
 
