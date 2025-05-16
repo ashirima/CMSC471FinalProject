@@ -80,7 +80,6 @@ function createVis(race, id){
             color: '#22223B',
             family: 'Open Sans'
           }
-<<<<<<< HEAD
         }];
         
 
@@ -109,12 +108,6 @@ function createVis(race, id){
           paper_bgcolor: '#E7D6CD',
           showlegend: false
         };
-=======
-        },
-        paper_bgcolor: '#F2E9E4', 
-        plot_bgcolor: '#F2E9E4',  
-      };
->>>>>>> 2c3f7ae40d3192088661547979d6fcdaa49e54ec
 
     
           Plotly.newPlot(id, fields, layout);
