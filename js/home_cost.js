@@ -1,8 +1,6 @@
 
 // TODO: make note that you can hover over squares
 
-
-
 export function init(year, asset){
     // explaining what each square represents
     squares();
@@ -53,7 +51,7 @@ function squares(){
         mode: 'markers',
         type: 'scatter',
         text: population_squares.map(d => d.race),
-        hoverinfo: 'text', 
+        hoverinfo: 'skip', 
         marker: {
             size: 50,
             color: population_squares.map(d => {
