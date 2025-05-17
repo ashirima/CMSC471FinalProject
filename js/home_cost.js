@@ -56,13 +56,13 @@ function squares(){
             size: 50,
             color: population_squares.map(d => {
               if (d.race === "White"){
-                  return "red"
+                  return "white"
               };
               if (d.race === "Black"){
-                  return "yellow"
+                  return "black"
               };
               if (d.race === "Hispanic"){
-                  return "blue";
+                  return "burlywood";
               } 
               if (d.race === "Other"){
                   return "green";
@@ -299,13 +299,13 @@ function equal_unequal(equal){
             size: 25,
             color: population_squares.map(d => {
                 if (d.race === "White"){
-                    return "red"
+                    return "white"
                 };
                 if (d.race === "Black"){
-                    return "yellow"
+                    return "black"
                 };
                 if (d.race === "Hispanic"){
-                    return "blue";
+                    return "burlywood";
                 } 
                 if (d.race === "Other"){
                     return "green";
@@ -331,19 +331,19 @@ function equal_unequal(equal){
             text: wealth_squares.map(d => `$`),  
             textfont: {
                 size: 20,
-                color: 'black'
+                color: wealth_squares.map(d=> d.race == 'Black'? 'white': 'black')
             },
             marker: {
             size: 25,
             color: wealth_squares.map(d => {
                 if (d.race === "White"){
-                    return "red"
+                    return "white"
                 };
                 if (d.race === "Black"){
-                    return "yellow"
+                    return "black"
                 };
                 if (d.race === "Hispanic"){
-                    return "blue";
+                    return "burlywood";
                 } 
                 if (d.race === "Other"){
                     return "green";
@@ -493,7 +493,7 @@ function home_cost(year, asset){
             text: wealth_squares.map(d => `$`),  // show the money in the squares
             textfont: {
                 size: 20,
-                color: 'black'
+                color: wealth_squares.map(d=> d.race == 'Black'? 'white': 'black')
             },
             hovertext: wealth_squares.map(d => d.race),  //make sure hover text sticks as race when changing other text to $
             hoverinfo: 'text', 
@@ -503,13 +503,13 @@ function home_cost(year, asset){
               size: 25,
               color: wealth_squares.map(d => {
                 if (d.race === "White"){
-                    return "red"
+                    return "white"
                 };
                 if (d.race === "Black"){
-                    return "yellow"
+                    return "black"
                 };
                 if (d.race === "Hispanic"){
-                    return "blue";
+                    return "burlywood";
                 } 
                 if (d.race === "Other"){
                     return "green";
@@ -531,13 +531,13 @@ function home_cost(year, asset){
               size: 25,
               color: population_squares.map(d => {
                 if (d.race === "White"){
-                    return "red"
+                    return "white"
                 };
                 if (d.race === "Black"){
-                    return "yellow"
+                    return "black"
                 };
                 if (d.race === "Hispanic"){
-                    return "blue";
+                    return "burlywood";
                 } 
                 if (d.race === "Other"){
                     return "green";

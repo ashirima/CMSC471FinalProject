@@ -7,7 +7,7 @@ body {
 }
 
 .header {
-  width: 100%;
+  width: 70%;
   padding: 5% 15%;
   text-align: center;
   background: #22223B;
@@ -56,7 +56,18 @@ p{
   flex: 1; 
 }
 
+#pie-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1%;
 
+ 
+}
+
+#pie1, #pie2 {
+  margin: 1%;
+}
 
 
 .disparities{

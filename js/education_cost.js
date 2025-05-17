@@ -84,16 +84,16 @@ function createVis(race, id){
         
 
         let layout = {
-          height: 600,
-          width: 800,
+          height: 500,
+          width: 500,
           legend: {
             x: 2, // push legend to the right (default is 1)
             y: 0.5,
             xanchor: 'right'
           },
           margin: {
-            l: 150,
-            r: 200,
+            l: 0,
+            r: 0,
             t: 100,
             b: 100
           },
@@ -105,7 +105,7 @@ function createVis(race, id){
               family: 'Open Sans'
             }
           },
-          paper_bgcolor: '#E7D6CD',
+          paper_bgcolor: '#F2E9E4',
           showlegend: false
         };
 
