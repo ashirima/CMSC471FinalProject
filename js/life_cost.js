@@ -366,18 +366,24 @@ function life_cost(year){
         function highlight_last_or_top(is_last, reset){
             let selected_states = top_ten;
             let highlight_color = 'black';
+            let highlight_width = 1;
             if(is_last){
                 selected_states = last_ten;
             } 
 
             if (!reset){
                 highlight_color = states.map(state =>
-                    selected_states.includes(state) ? 'red' : 'black'
+                    selected_states.includes(state) ? 'red' : 'black',
+                );
+                highlight_width = states.map(state => 
+                    selected_states.includes(state) ? 2 : 1,
                 );
             }
           
             Plotly.restyle('bar-chart', {
-                'marker.line.color': [highlight_color]
+                'marker.line.color': [highlight_color],
+                'marker.line.width': [highlight_width]
+              
             }, [0]); 
         }
 

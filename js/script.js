@@ -73,7 +73,7 @@ function init(){
     //initialize education cost graphics default to black and white
     educationinit("Black", "pie1");
     educationinit("White", "pie2");
-    homeinit("2024", "Assets");
+    homeinit("2024", "assets");
 
     //init life cost
     lifeinit("2022");

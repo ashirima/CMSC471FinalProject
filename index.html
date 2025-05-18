@@ -41,15 +41,17 @@
 
             <p>In a perfect world, each household would have an equal amount of wealth held from America's economy. This would look something like this...</p>
             <div id="equal-breakdown"></div>
-
+            
+            <p>As we add more sqaures the diversity in the households represents the diversity in the wealth held.</p>
             <div id="buttons">
               <button id="add-square-equal">Click To Add Another Square</button>
               <button id="reset-square-equal">Click To Reset</button>
             </div>
-
+        
             <p>However, we do not live in a perfect world. Wealth is unequally distributed to the population which puts Black Americans at a severe
-                disadvantage regarding generational wealth. In reality, some races hold more wealth than propoptional to their population. The distribution of wealth looks more like this...</p>
+                disadvantage regarding generational wealth. In reality, some races hold more wealth than propoptional to their population.</p>
             <div id="unequal-breakdown"></div>
+            <p>As we add more sqaures the amount of wealth held becomes dominated by majority races (White households and Other households).</p>
             
             <div id="buttons">
               <button id="add-square-unequal">Click To Add Another Square</button>
@@ -76,9 +78,9 @@
               <div class="select">
                 <select id="select-wealth-value">
                   <option value="Wealth">Select Wealth Measure</option>
-                  <option value="Assets">All Assets</option>
-                  <option value="Real estate">Real Estate</option>
-                  <option value="Mortgage">Mortgage</option>
+                  <option value="assets">All Assets</option>
+                  <option value="real estate">Real Estate</option>
+                  <option value="mortgage">Mortgage</option>
                 </select>
               </div>
 
@@ -100,10 +102,10 @@
 
                 <h3>Disparity in Higher Education</h3>
                 
-                <p>In many cases, higher paying professional careers are obtained by pursuing higher education. However, Black people generally have less access
-                  to higher education, which causes them to be underrepresented in higher paying fields. Below is a piechart that shows the breakdown of
-                  education attainment by race in adults aged 25 and older. Compared to their White and Asian counterparts, Black people are less likely to receive
-                  some sort of college degree.
+                <p>Commonly, higher paying professional careers are obtained by individuals who pursue higher education. Black Americans generally have less access
+                  to higher education, which causes them to be underrepresented in higher paying fields. Below is a pie chart that shows the breakdown of
+                  education attainment by race in adults aged 25 and older. Compared to their White and Asian counterparts, Black Americans are less likely to receive
+                  a college degree.
                 </p>
 
 
@@ -169,7 +171,7 @@
               <div id="bar-chart"></div>
 
               <p>Interestingly, the states with lower Black populations experience this disparity at higher levels
-                compared to states with more Black Americans. This disparity keeps
+                compared to states with higher Black populations. This disparity keeps
                 Black Americans that are already low in population from creating generational wealth because of lower employment rates and
                 higher incarceration numbers. 
                 
@@ -202,17 +204,18 @@
 
             <h2>Impact of Systemic Disparities on Employment</h2>
 
-            <p>Since less Black Americans are pursuing higher education and are incarcerated at higher rates, we see a trend in the types of jobs
-                Black Americans work. The visual below describes the under and overrepresentation of Black, White,
+            <p>With less Black Americans pursuing higher education and higher incarceration numbers, we see a trend in the types of jobs
+                Black Americans work in. The visual below describes the under and overrepresentation of Black, White,
                 Asian, and Hispanic Americans at four income levels. These income levels represent 
                 the jobs that have a weekly income under the first quartile (Low), between the first quartile and median income (Mid-Low), between the 
-                median the the third quartile (Mid-High), and above the third quartile (High). 
+                median the the third quartile (Mid-High), and above the third quartile (High). These calculations were determined based on the U.S. 
+                Bureau of Labor Statistics.  
             </p>
 
 
             <p>From this visual we can see that Black Americans are statistically more likely to be overrepresented in lower paying jobs
               and underrepresented in higher paying jobs. This could be a result of the lack of education needed for such jobs, or the impact of society
-              steering Black Americans to more service oriented jobs.
+              steering Black Americans towards service oriented jobs.
             </p>
             <div class="select">
                 <select id="select">
@@ -226,11 +229,11 @@
             </div>
 
             <div id="quadrantbar"></div>
-            <p> The ratios for this data were calculated by dividing the race's representation in the specified jobs
-              by the race's representation in the population. EX: If Black Americans made up 13% of the American population and 
-              6% of the population of high-income jobs, this would calculate to 0.46. We then subtract that number from 
+            <p style="font-size: 10px;">The ratios for this data were calculated by dividing the race's representation in the specified jobs
+              by the race's representation in the population. For example: If Black Americans made up 13% of the American population and 
+              6% of the population of high-income jobs, this would calculate to 0.46 (6%/13%). We then subtract that number from 
               1 which is our baseline and it gives us the ratio -0.53. Therefore Black Americans are underrepresented by a ratio
-              of 0.53. 
+              of 0.53. If the number were positive it would be an overrepresentation 
             </p>
 
             
@@ -241,18 +244,25 @@
               <a href="https://www.bls.gov/cps/data/aa2023/cpsaat11.htm">2023,</a> and
               <a href="https://www.bls.gov/cps/cpsaat11.htm">2024</a> 
             </small></p>
-            
 
+           
+              <div class="header"><!-- neat header for the website-->
+                <h3>From these visualizations the socioeconomic disparity between Black Americans and majority races is clear. 
+                  It's important to understand the impact this gap has on the welfare of Black Americans.</h3>
+              </div>
 
           </div>
          </div>
 
-
+      
         </section>
 
+  
+      
     </div>
 
 
+  
    
 </body>
 </html>

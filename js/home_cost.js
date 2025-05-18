@@ -78,9 +78,12 @@ function squares(){
         yaxis: { showgrid: false, showticklabels: false, zeroline: false},
         width:500,
         height:150,
+        autosize:true,
         paper_bgcolor: '#F2E9E4', 
         plot_bgcolor: '#F2E9E4',  
         showlegend:false,
+        staticPlot:true,
+        dragmode:false,
         margin: {
             t: 30,   
             b: 20    
@@ -129,7 +132,7 @@ function squares(){
       };
 
       // plot the four squares 
-      Plotly.newPlot('squares', [square_traces_population], layout);
+      Plotly.newPlot('squares', [square_traces_population], layout, {displayModeBar:false});
      
       
 }
@@ -365,6 +368,8 @@ function equal_unequal(equal){
             yaxis2: { showgrid: false, showticklabels: false, zeroline: false},
             width:600,
             height:300,
+            staticPlot:true,
+            dragmode:false,
             margin: {
                 t: 30,   
                 b: 20    
@@ -376,10 +381,10 @@ function equal_unequal(equal){
 
         if(equal){
             // if its equal show equal breakdown otherwise show unequal breakdown
-            Plotly.newPlot('equal-breakdown', [square_traces_population, squares_wealth_traces], layout);
+            Plotly.newPlot('equal-breakdown', [square_traces_population, squares_wealth_traces], layout, {displayModeBar:false});
             
         } else{
-            Plotly.newPlot('unequal-breakdown', [square_traces_population, squares_wealth_traces], layout);
+            Plotly.newPlot('unequal-breakdown', [square_traces_population, squares_wealth_traces], layout, {displayModeBar:false});
 
         }
         
@@ -413,13 +418,14 @@ function home_cost(year, asset){
         let index = 0;
 
         // determining what asset the user selected
-        if (asset == "Mortgage"){
+        if (asset == "mortgage"){
             curr_asset = `mortgages`
-        } else if (asset == "Real estate"){
+        } else if (asset == "real estate"){
             curr_asset = `real_estate`
         } else {
             curr_asset = `assets`
         }
+        console.log(curr_asset)
 
         // find the "black" row of data
         curr_black = race_data[0].find(d => d.race == "Black")
@@ -558,6 +564,8 @@ function home_cost(year, asset){
             yaxis2: { showgrid: false, showticklabels: false, zeroline: false},
             width:1100,
             height:450,
+            staticPlot:true,
+            dragmode:false,
             margin: {
                 t: 30,   
                 b: 20    
@@ -573,6 +581,8 @@ function home_cost(year, asset){
             yaxis: { showgrid: false, showticklabels: false, zeroline: false},
             width:550,
             height:450,
+            staticPlot:true,
+            dragmode:false,
             margin: {
                 t: 30,   
                 b: 20    
@@ -585,10 +595,10 @@ function home_cost(year, asset){
 
         
           // this is the example distribution of races
-          Plotly.newPlot('racial-breakdown', [square_traces_population], layout_example);
+          Plotly.newPlot('racial-breakdown', [square_traces_population], layout_example, {displayModeBar:false});
 
           // this is the main interactive graph
-          Plotly.newPlot('waffle-chart', [square_traces_population, square_traces_wealth], layout);
+          Plotly.newPlot('waffle-chart', [square_traces_population, square_traces_wealth], layout, {displayModeBar:false});
 
     })
 

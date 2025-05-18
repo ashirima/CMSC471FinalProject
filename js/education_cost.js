@@ -72,25 +72,20 @@ function createVis(race, id){
           marker: {
             colors: colors
           },
-          hoverinfo: "none",
+          hoverinfo: "label+percent",
           textinfo: "label+percent",
           sort: false,
-          textposition: 'outside',
+          textposition: 'inside',
           textfont:{
             color: '#22223B',
-            family: 'Open Sans'
+            family: 'Open Sans, sans-serif'
           }
         }];
         
 
         let layout = {
-          height: 500,
-          width: 500,
-          legend: {
-            x: 2, // push legend to the right (default is 1)
-            y: 0.5,
-            xanchor: 'right'
-          },
+          height: 550,
+          width: 550,
           margin: {
             l: 0,
             r: 0,
