@@ -72,7 +72,7 @@ function createVis(race, id){
           marker: {
             colors: colors
           },
-          hoverinfo: "label+percent",
+          hoverinfo: "skip",
           textinfo: "label+percent",
           sort: false,
           textposition: 'inside',
