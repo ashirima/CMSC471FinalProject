@@ -26,6 +26,7 @@ At the start of the development process, we both found a bunch of potential data
 
 ## Sources
 [Wealth Ownership](https://www.federalreserve.gov/releases/z1/dataviz/dfa/distribute/chart/#quarter:122;series:Private%20businesses;demographic:race;population:1,3,5,7;units:shares;range:1989.3,2020.1)
+<br>
 [Education Attainment in 2022](https://www.census.gov/data/tables/2022/demo/educational-attainment/cps-detailed-tables.html)
 <br><br>
 Incarceration Rates
