@@ -23,3 +23,26 @@ This final section showcases the disparities Black Americans face in employment.
 ## Development Process:
 
 At the start of the development process, we both found a bunch of potential datasets that we could use for this project, and over the course of a few days, narrowed it down to create 4 main sections. Abigail set up the repository, worked on the education attainment section, deployed the webpage, and recorded the demo video, and completed the write-up. She also edited all of the text on the webpage and helped Hadijat in the development process of the other sections. Hadijat worked on the wealth gap, incarceration rate, and employment sections by creating the visualizations. She also beautified the webpage and chose the color scheme.
+
+## Sources
+[Wealth Ownership](https://www.federalreserve.gov/releases/z1/dataviz/dfa/distribute/chart/#quarter:122;series:Private%20businesses;demographic:race;population:1,3,5,7;units:shares;range:1989.3,2020.1)
+[Education Attainment in 2022](https://www.census.gov/data/tables/2022/demo/educational-attainment/cps-detailed-tables.html)
+<br><br>
+Incarceration Rates
+- [2019](https://bjs.ojp.gov/library/publications/prisoners-2019)
+- [2020](https://bjs.ojp.gov/library/publications/prisoners-2020-statistical-tables)
+- [2021](https://bjs.ojp.gov/library/publications/prisoners-2021-statistical-tables)
+- [2022](https://bjs.ojp.gov/library/publications/prisoners-2022-statistical-tables)
+<br><br>
+Population
+- [2020](https://wonder.cdc.gov/single-race-single-year-v2021.html)
+- [2019, 2021, 2022](https://www.kff.org/other/state-indicator/distribution-by-raceethnicity/?currentTimeframe=0&sortModel=%7B%22colId%22:%22Location%22,%22sort%22:%22asc%22%7D)
+<br><br>
+Employment
+- [2020](https://www.bls.gov/cps/aa2020/cpsaat11.htm)
+- [2021](https://www.bls.gov/cps/aa2021/cpsaat11.htm)
+- [2022](https://www.bls.gov/cps/aa2022/cpsaat11.htm)
+- [2023](https://www.bls.gov/cps/aa2022/cpsaat11.htm)
+- [2024](https://www.bls.gov/cps/cpsaat11.htm)
+
+
